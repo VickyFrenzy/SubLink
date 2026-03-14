@@ -33,16 +33,15 @@ internal sealed partial class DiscordService {
             if (eventName.Equals("GUILD_STATUS", StringComparison.InvariantCultureIgnoreCase)) {
                 args = new { guild_id = id };
             } else if (
-                eventName.StartsWith("VOICE_STATE", StringComparison.InvariantCultureIgnoreCase) ||
+                eventName.StartsWith("VOICE_STATE_", StringComparison.InvariantCultureIgnoreCase) ||
                 eventName.StartsWith("MESSAGE_", StringComparison.InvariantCultureIgnoreCase) ||
-                eventName.Equals("SPEAKING_START", StringComparison.InvariantCultureIgnoreCase) ||
-                eventName.Equals("SPEAKING_STOP", StringComparison.InvariantCultureIgnoreCase)
+                eventName.StartsWith("SPEAKING_", StringComparison.InvariantCultureIgnoreCase)
             ) {
                 args = new { channel_id = id };
             }
         }
 
-        _discord?.SendCommand(1, DiscordIpcMessage.Subscribe(eventName, args));
+        _discord?.SendDataAndWait(1, DiscordIpcMessage.Subscribe(eventName, args));
     }
 
     public void UnsubscribeEvent(string eventName, string? id = null) {
@@ -54,8 +53,7 @@ internal sealed partial class DiscordService {
             } else if (
                 eventName.StartsWith("VOICE_STATE", StringComparison.InvariantCultureIgnoreCase) ||
                 eventName.StartsWith("MESSAGE_", StringComparison.InvariantCultureIgnoreCase) ||
-                eventName.Equals("SPEAKING_START", StringComparison.InvariantCultureIgnoreCase) ||
-                eventName.Equals("SPEAKING_STOP", StringComparison.InvariantCultureIgnoreCase)
+                eventName.StartsWith("SPEAKING_", StringComparison.InvariantCultureIgnoreCase)
             ) {
                 args = new { channel_id = id };
             }

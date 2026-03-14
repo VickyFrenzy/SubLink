@@ -133,6 +133,39 @@ discord.SetOutputVolume(0.25f);
 
 Subscribe to a specific Discord event.
 
+Default subscribed events:
+- READY
+- ERROR
+- GUILD_CREATE
+- CHANNEL_CREATE
+- VOICE_CHANNEL_SELECT
+- VOICE_SETTINGS_UPDATE
+- VOICE_CONNECTION_STATUS
+- NOTIFICATION_CREATE
+- ACTIVITY_JOIN
+- ACTIVITY_SPECTATE
+- ACTIVITY_JOIN_REQUEST
+
+Available events:
+- GUILD_STATUS
+  - Requires `guild_id`
+- VOICE_STATE_CREATE
+  - Requires `channel_id`
+- VOICE_STATE_UPDATE
+  - Requires `channel_id`
+- VOICE_STATE_DELETE
+  - Requires `channel_id`
+- MESSAGE_CREATE
+  - Requires `channel_id`
+- MESSAGE_UPDATE
+  - Requires `channel_id`
+- MESSAGE_DELETE
+  - Requires `channel_id`
+- SPEAKING_START
+  - Requires `channel_id`
+- SPEAKING_STOP
+  - Requires `channel_id`
+
 - Parameters
    - `string` eventName - required - Name of the event to subscribe to
    - `string` id        - optional - Event-specific ID

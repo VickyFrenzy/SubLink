@@ -118,40 +118,28 @@ internal sealed partial class DiscordService {
             if (await _discord.Authenticate(_accessToken)) {
                 _logger.Information("[{TAG}] Authenticated successfully!", Platform.PlatformName);
                 // Subscribe to common events
-                _logger.Debug("[{TAG}] Subscribing to READY", Platform.PlatformName);
                 _discord.SendDataAndWait(1, DiscordIpcMessage.Subscribe("READY"));
-                _logger.Debug("[{TAG}] Subscribing to ERROR", Platform.PlatformName);
                 _discord.SendDataAndWait(1, DiscordIpcMessage.Subscribe("ERROR"));
-                _logger.Debug("[{TAG}] Subscribing to VOICE_CHANNEL_SELECT", Platform.PlatformName);
-                _discord.SendDataAndWait(1, DiscordIpcMessage.Subscribe("VOICE_CHANNEL_SELECT"));
-                _logger.Debug("[{TAG}] Subscribing to VOICE_SETTINGS_UPDATE", Platform.PlatformName);
-                _discord.SendDataAndWait(1, DiscordIpcMessage.Subscribe("VOICE_SETTINGS_UPDATE"));
-                _logger.Debug("[{TAG}] Subscribing to VOICE_CONNECTION_STATUS", Platform.PlatformName);
-                _discord.SendDataAndWait(1, DiscordIpcMessage.Subscribe("VOICE_CONNECTION_STATUS"));
 
-                if (!string.IsNullOrEmpty(_settings.DefaultGuildId)) {
-                    _logger.Debug("[{TAG}] Subscribing to GUILD_STATUS for {defaultGuildId}", Platform.PlatformName, _settings.DefaultGuildId);
+                if (!string.IsNullOrEmpty(_settings.DefaultGuildId))
                     _discord.SendDataAndWait(1, DiscordIpcMessage.Subscribe("GUILD_STATUS", new { guild_id = _settings.DefaultGuildId }));
-                } else {
-                    _logger.Debug("[{TAG}] DefaultGuildId empty; skipping GUILD_STATUS subscription", Platform.PlatformName);
-                }
 
                 _discord.SendDataAndWait(1, DiscordIpcMessage.Subscribe("GUILD_CREATE"));
                 _discord.SendDataAndWait(1, DiscordIpcMessage.Subscribe("CHANNEL_CREATE"));
+                _discord.SendDataAndWait(1, DiscordIpcMessage.Subscribe("VOICE_CHANNEL_SELECT"));
+                _discord.SendDataAndWait(1, DiscordIpcMessage.Subscribe("VOICE_SETTINGS_UPDATE"));
+                _discord.SendDataAndWait(1, DiscordIpcMessage.Subscribe("VOICE_CONNECTION_STATUS"));
 
                 if (!string.IsNullOrEmpty(_settings.DefaultChannelId)) {
-                    _logger.Debug("[{TAG}] Subscribing to voice and message events for channel {defaultChannelId}", Platform.PlatformName, _settings.DefaultChannelId);
                     var chArgs = new { channel_id = _settings.DefaultChannelId };
                     _discord.SendDataAndWait(1, DiscordIpcMessage.Subscribe("VOICE_STATE_CREATE", chArgs));
                     _discord.SendDataAndWait(1, DiscordIpcMessage.Subscribe("VOICE_STATE_UPDATE", chArgs));
                     _discord.SendDataAndWait(1, DiscordIpcMessage.Subscribe("VOICE_STATE_DELETE", chArgs));
-                    _discord.SendDataAndWait(1, DiscordIpcMessage.Subscribe("SPEAKING_START", chArgs));
-                    _discord.SendDataAndWait(1, DiscordIpcMessage.Subscribe("SPEAKING_STOP", chArgs));
                     _discord.SendDataAndWait(1, DiscordIpcMessage.Subscribe("MESSAGE_CREATE", chArgs));
                     _discord.SendDataAndWait(1, DiscordIpcMessage.Subscribe("MESSAGE_UPDATE", chArgs));
                     _discord.SendDataAndWait(1, DiscordIpcMessage.Subscribe("MESSAGE_DELETE", chArgs));
-                } else {
-                    _logger.Debug("[{TAG}] DefaultChannelId empty; skipping channel-specific subscriptions", Platform.PlatformName);
+                    _discord.SendDataAndWait(1, DiscordIpcMessage.Subscribe("SPEAKING_START", chArgs));
+                    _discord.SendDataAndWait(1, DiscordIpcMessage.Subscribe("SPEAKING_STOP", chArgs));
                 }
 
                 _discord.SendDataAndWait(1, DiscordIpcMessage.Subscribe("NOTIFICATION_CREATE"));

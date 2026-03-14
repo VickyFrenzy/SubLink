@@ -1,9 +1,7 @@
-﻿using Newtonsoft.Json.Linq;
-using Serilog;
+﻿using Serilog;
 using System;
 using System.IO;
 using System.IO.Pipes;
-using System.Linq;
 using System.Text;
 using System.Text.Json;
 using System.Threading;
@@ -23,21 +21,21 @@ internal class DiscordClient(ILogger logger) : IDisposable {
     internal event EventHandler? OnNeedsRestart;
     public event EventHandler? OnReady;
     public event EventHandler<DiscordErrorArgs>? OnError;
+    public event EventHandler<DiscordGuildInfoEventArgs>? OnGuildStatus;
+    public event EventHandler<DiscordGuildInfoEventArgs>? OnGuildCreate;
+    public event EventHandler<DiscordChannelCreateEventArgs>? OnChannelCreate;
     public event EventHandler<DiscordVoiceChannelIdEventArgs>? OnSelectedVoiceChannel;
     public event EventHandler<DiscordVoiceSettingsEventArgs>? OnVoiceSettingsUpdate;
+    public event EventHandler<DiscordVoiceStateEventArgs>? OnVoiceStateCreate;
+    public event EventHandler<DiscordVoiceStateEventArgs>? OnVoiceStateUpdate;
+    public event EventHandler<DiscordVoiceStateEventArgs>? OnVoiceStateDelete;
     public event EventHandler<DiscordVoiceStatusEventArgs>? OnVoiceStatusUpdate;
-    public event EventHandler<DiscordGuildIdEventArgs>? OnGuildStatus;
-    public event EventHandler<DiscordGuildIdEventArgs>? OnGuildCreate;
-    public event EventHandler<DiscordChannelEventArgs>? OnChannelCreate;
-    public event EventHandler<DiscordUserIdEventArgs>? OnVoiceStateCreate;
-    public event EventHandler<DiscordUserIdEventArgs>? OnVoiceStateUpdate;
-    public event EventHandler<DiscordUserIdEventArgs>? OnVoiceStateDelete;
+    public event EventHandler<DiscordMessageEventArgs>? OnMessageCreate;
+    public event EventHandler<DiscordMessageEventArgs>? OnMessageUpdate;
+    public event EventHandler<DiscordMessageEventArgs>? OnMessageDelete;
     public event EventHandler<DiscordUserIdEventArgs>? OnStartSpeaking;
     public event EventHandler<DiscordUserIdEventArgs>? OnStopSpeaking;
-    public event EventHandler<DiscordMessageIdEventArgs>? OnMessageCreate;
-    public event EventHandler<DiscordMessageIdEventArgs>? OnMessageUpdate;
-    public event EventHandler<DiscordMessageIdEventArgs>? OnMessageDelete;
-    public event EventHandler<DiscordChannelIdEventArgs>? OnNotificationCreate;
+    public event EventHandler<DiscordNotificationEventArgs>? OnNotificationCreate;
     public event EventHandler? OnActivityJoin;
     public event EventHandler? OnActivitySpectate;
     public event EventHandler<DiscordUserIdEventArgs>? OnActivityJoinRequest;
@@ -308,14 +306,15 @@ internal class DiscordClient(ILogger logger) : IDisposable {
     private void HandleCommandResponse(string commandName, JsonElement resp) {
         switch (commandName) {
             case "GET_VOICE_SETTINGS": {
-                if (resp.TryGetProperty("data", out var vs))
+                if (resp.TryGetProperty("data", out var vs) &&
+                    vs.TryGetProperty("mode", out var vsMode))
                     OnVoiceSettingsUpdate?.Invoke(this, new(
                         vs.GetProperty("input").GetProperty("volume").GetSingle(),
                         vs.GetProperty("output").GetProperty("volume").GetSingle(),
-                        vs.GetProperty("mode").GetProperty("type").GetString() ?? string.Empty,
-                        vs.GetProperty("mode").GetProperty("auto_threshold").GetBoolean(),
-                        vs.GetProperty("mode").GetProperty("threshold").GetSingle(),
-                        vs.GetProperty("mode").GetProperty("delay").GetSingle(),
+                        vsMode.GetProperty("type").GetString() ?? string.Empty,
+                        vsMode.GetProperty("auto_threshold").GetBoolean(),
+                        vsMode.GetProperty("threshold").GetSingle(),
+                        vsMode.GetProperty("delay").GetSingle(),
                         vs.GetProperty("automatic_gain_control").GetBoolean(),
                         vs.GetProperty("echo_cancellation").GetBoolean(),
                         vs.GetProperty("noise_suppression").GetBoolean(),
@@ -328,17 +327,22 @@ internal class DiscordClient(ILogger logger) : IDisposable {
                 return;
             }
             case "GET_GUILD": {
-                if (resp.TryGetProperty("data", out var gs) && gs.TryGetProperty("guild", out var g) && g.TryGetProperty("id", out var gidElStatus))
-                    OnGuildStatus?.Invoke(this, new(gidElStatus.GetString() ?? string.Empty));
+                if (resp.TryGetProperty("data", out var gs))
+                    OnGuildStatus?.Invoke(this, new(
+                        gs.GetProperty("id").GetString() ?? string.Empty,
+                        gs.GetProperty("name").GetString() ?? string.Empty,
+                        gs.GetProperty("icon_url").GetString() ?? string.Empty
+                    ));
 
                 return;
             }
             case "GET_CHANNEL":
             case "GET_SELECTED_VOICE_CHANNEL": {
-                if (resp.TryGetProperty("data", out var vc) &&
-                    vc.TryGetProperty("id", out var cid) &&
-                    vc.TryGetProperty("guild_id", out var gid))
-                    OnSelectedVoiceChannel?.Invoke(this, new(cid.GetString() ?? string.Empty, gid.GetString() ?? string.Empty));
+                if (resp.TryGetProperty("data", out var vc))
+                    OnSelectedVoiceChannel?.Invoke(this, new(
+                        vc.GetProperty("id").GetString() ?? string.Empty,
+                        vc.GetProperty("guild_id").GetString() ?? string.Empty
+                    ));
 
                 return;
             }
@@ -355,28 +359,63 @@ internal class DiscordClient(ILogger logger) : IDisposable {
                 return;
             }
             case "ERROR": {
-                if (evt.TryGetProperty("data", out var err) && err.TryGetProperty("code", out var codeEl) && err.TryGetProperty("message", out var msgEl))
-                    OnError?.Invoke(this, new(codeEl.GetInt32(), msgEl.GetString() ?? string.Empty));
+                if (evt.TryGetProperty("data", out var err))
+                    OnError?.Invoke(this, new(
+                        err.GetProperty("code").GetInt32(),
+                        err.GetProperty("message").GetString() ?? string.Empty
+                    ));
+
+                return;
+            }
+            case "GUILD_STATUS": {
+                if (evt.TryGetProperty("data", out var gs) && gs.TryGetProperty("guild", out var g))
+                    OnGuildStatus?.Invoke(this, new(
+                        g.GetProperty("id").GetString() ?? string.Empty,
+                        g.GetProperty("name").GetString() ?? string.Empty,
+                        g.GetProperty("icon_url").GetString() ?? string.Empty
+                    ));
+
+                return;
+            }
+            case "GUILD_CREATE": {
+                if (evt.TryGetProperty("data", out var gc))
+                    OnGuildCreate?.Invoke(this, new(
+                        gc.GetProperty("id").GetString() ?? string.Empty,
+                        gc.GetProperty("name").GetString() ?? string.Empty,
+                        string.Empty
+                    ));
+
+                return;
+            }
+            case "CHANNEL_CREATE": {
+                if (evt.TryGetProperty("data", out var ch))
+                    OnChannelCreate?.Invoke(this, new(
+                        ch.GetProperty("id").GetString() ?? string.Empty,
+                        ch.GetProperty("name").GetString() ?? string.Empty,
+                        (ChannelType)ch.GetProperty("type").GetInt32()
+                    ));
 
                 return;
             }
             case "VOICE_CHANNEL_SELECT": {
-                if (evt.TryGetProperty("data", out var vc) &&
-                    vc.TryGetProperty("channel_id", out var cid) &&
-                    vc.TryGetProperty("guild_id", out var gid))
-                    OnSelectedVoiceChannel?.Invoke(this, new(cid.GetString() ?? string.Empty, gid.GetString() ?? string.Empty));
+                if (evt.TryGetProperty("data", out var vc))
+                    OnSelectedVoiceChannel?.Invoke(this, new(
+                        vc.GetProperty("channel_id").GetString() ?? string.Empty,
+                        vc.GetProperty("guild_id").GetString() ?? string.Empty
+                    ));
 
                 return;
             }
             case "VOICE_SETTINGS_UPDATE": {
-                if (evt.TryGetProperty("data", out var vs))
+                if (evt.TryGetProperty("data", out var vs) &&
+                    vs.TryGetProperty("mode", out var vsMode))
                     OnVoiceSettingsUpdate?.Invoke(this, new(
                         vs.GetProperty("input").GetProperty("volume").GetSingle(),
                         vs.GetProperty("output").GetProperty("volume").GetSingle(),
-                        vs.GetProperty("mode").GetProperty("type").GetString() ?? string.Empty,
-                        vs.GetProperty("mode").GetProperty("auto_threshold").GetBoolean(),
-                        vs.GetProperty("mode").GetProperty("threshold").GetSingle(),
-                        vs.GetProperty("mode").GetProperty("delay").GetSingle(),
+                        vsMode.GetProperty("type").GetString() ?? string.Empty,
+                        vsMode.GetProperty("auto_threshold").GetBoolean(),
+                        vsMode.GetProperty("threshold").GetSingle(),
+                        vsMode.GetProperty("delay").GetSingle(),
                         vs.GetProperty("automatic_gain_control").GetBoolean(),
                         vs.GetProperty("echo_cancellation").GetBoolean(),
                         vs.GetProperty("noise_suppression").GetBoolean(),
@@ -388,50 +427,128 @@ internal class DiscordClient(ILogger logger) : IDisposable {
 
                 return;
             }
+            case "VOICE_STATE_CREATE": {
+                if (evt.TryGetProperty("data", out var vsd) &&
+                    vsd.TryGetProperty("user", out var usr) &&
+                    vsd.TryGetProperty("voice_state", out var vsdvs))
+                    OnVoiceStateCreate?.Invoke(this, new(
+                        usr.GetProperty("id").GetString() ?? string.Empty,
+                        usr.GetProperty("username").GetString() ?? string.Empty,
+                        vsd.GetProperty("nick").GetString() ?? string.Empty,
+                        usr.GetProperty("bot").GetBoolean(),
+                        vsd.GetProperty("volume").GetInt32(),
+                        vsd.GetProperty("mute").GetBoolean(),
+                        vsdvs.GetProperty("mute").GetBoolean(),
+                        vsdvs.GetProperty("deaf").GetBoolean(),
+                        vsdvs.GetProperty("self_mute").GetBoolean(),
+                        vsdvs.GetProperty("self_deaf").GetBoolean(),
+                        vsdvs.GetProperty("suppress").GetBoolean()
+                    ));
+
+                return;
+            }
+            case "VOICE_STATE_UPDATE": {
+                if (evt.TryGetProperty("data", out var vsd) &&
+                    vsd.TryGetProperty("user", out var usr) &&
+                    vsd.TryGetProperty("voice_state", out var vsdvs))
+                    OnVoiceStateUpdate?.Invoke(this, new(
+                        usr.GetProperty("id").GetString() ?? string.Empty,
+                        usr.GetProperty("username").GetString() ?? string.Empty,
+                        vsd.GetProperty("nick").GetString() ?? string.Empty,
+                        usr.GetProperty("bot").GetBoolean(),
+                        vsd.GetProperty("volume").GetInt32(),
+                        vsd.GetProperty("mute").GetBoolean(),
+                        vsdvs.GetProperty("mute").GetBoolean(),
+                        vsdvs.GetProperty("deaf").GetBoolean(),
+                        vsdvs.GetProperty("self_mute").GetBoolean(),
+                        vsdvs.GetProperty("self_deaf").GetBoolean(),
+                        vsdvs.GetProperty("suppress").GetBoolean()
+                    ));
+
+                return;
+            }
+            case "VOICE_STATE_DELETE": {
+                if (evt.TryGetProperty("data", out var vsd) &&
+                    vsd.TryGetProperty("user", out var usr) &&
+                    vsd.TryGetProperty("voice_state", out var vsdvs))
+                    OnVoiceStateDelete?.Invoke(this, new(
+                        usr.GetProperty("id").GetString() ?? string.Empty,
+                        usr.GetProperty("username").GetString() ?? string.Empty,
+                        vsd.GetProperty("nick").GetString() ?? string.Empty,
+                        usr.GetProperty("bot").GetBoolean(),
+                        vsd.GetProperty("volume").GetInt32(),
+                        vsd.GetProperty("mute").GetBoolean(),
+                        vsdvs.GetProperty("mute").GetBoolean(),
+                        vsdvs.GetProperty("deaf").GetBoolean(),
+                        vsdvs.GetProperty("self_mute").GetBoolean(),
+                        vsdvs.GetProperty("self_deaf").GetBoolean(),
+                        vsdvs.GetProperty("suppress").GetBoolean()
+                    ));
+
+                return;
+            }
             case "VOICE_CONNECTION_STATUS": {
-                if (evt.TryGetProperty("data", out var vcstat) && vcstat.TryGetProperty("state", out var stateEl)) {
-                    string state = stateEl.GetString() ?? string.Empty;
+                if (evt.TryGetProperty("data", out var vcstat)) {
+                    string state = vcstat.GetProperty("state").GetString() ?? string.Empty;
                     OnVoiceStatusUpdate?.Invoke(this, new(state, VoiceStateToInt(state)));
                 }
 
                 return;
             }
-            case "GUILD_STATUS": {
-                if (evt.TryGetProperty("data", out var gs) && gs.TryGetProperty("guild", out var g) && g.TryGetProperty("id", out var gidElStatus))
-                    OnGuildStatus?.Invoke(this, new(gidElStatus.GetString() ?? string.Empty));
-
-                return;
-            }
-            case "GUILD_CREATE": {
-                if (evt.TryGetProperty("data", out var gc) && gc.TryGetProperty("id", out var gidc))
-                    OnGuildCreate?.Invoke(this, new(gidc.GetString() ?? string.Empty));
-
-                return;
-            }
-            case "CHANNEL_CREATE": {
-                if (evt.TryGetProperty("data", out var ch) && ch.TryGetProperty("id", out var cidEl) && ch.TryGetProperty("name", out var cnameEl))
-                    OnChannelCreate?.Invoke(this, new(
-                        cidEl.GetString() ?? string.Empty,
-                        cnameEl.GetString() ?? string.Empty
+            case "MESSAGE_CREATE": {
+                if (evt.TryGetProperty("data", out var msgd) &&
+                    msgd.TryGetProperty("message", out var msg) &&
+                    msg.TryGetProperty("author", out var msga))
+                    OnMessageCreate?.Invoke(this, new(
+                        msgd.GetProperty("channel_id").GetString() ?? string.Empty,
+                        msg.GetProperty("id").GetString() ?? string.Empty,
+                        msg.GetProperty("blocked").GetBoolean(),
+                        msg.GetProperty("content").GetString() ?? string.Empty,
+                        msg.GetProperty("timestamp").GetString() ?? string.Empty,
+                        msg.GetProperty("edited_timestamp").GetString() ?? string.Empty,
+                        msg.GetProperty("pinned").GetBoolean(),
+                        msga.GetProperty("id").GetString() ?? string.Empty,
+                        msga.GetProperty("username").GetString() ?? string.Empty,
+                        msga.GetProperty("bot").GetBoolean()
                     ));
 
                 return;
             }
-            case "VOICE_STATE_CREATE": {
-                if (evt.TryGetProperty("data", out var vsd) && vsd.TryGetProperty("user", out var usr) && usr.TryGetProperty("id", out var uid))
-                    OnVoiceStateCreate?.Invoke(this, new(uid.GetString() ?? string.Empty));
+            case "MESSAGE_UPDATE": {
+                if (evt.TryGetProperty("data", out var msgd) &&
+                    msgd.TryGetProperty("message", out var msg) &&
+                    msg.TryGetProperty("author", out var msga))
+                    OnMessageUpdate?.Invoke(this, new(
+                        msgd.GetProperty("channel_id").GetString() ?? string.Empty,
+                        msg.GetProperty("id").GetString() ?? string.Empty,
+                        msg.GetProperty("blocked").GetBoolean(),
+                        msg.GetProperty("content").GetString() ?? string.Empty,
+                        msg.GetProperty("timestamp").GetString() ?? string.Empty,
+                        msg.GetProperty("edited_timestamp").GetString() ?? string.Empty,
+                        msg.GetProperty("pinned").GetBoolean(),
+                        msga.GetProperty("id").GetString() ?? string.Empty,
+                        msga.GetProperty("username").GetString() ?? string.Empty,
+                        msga.GetProperty("bot").GetBoolean()
+                    ));
 
                 return;
             }
-            case "VOICE_STATE_UPDATE": {
-                if (evt.TryGetProperty("data", out var vsd) && vsd.TryGetProperty("user", out var usr) && usr.TryGetProperty("id", out var uid))
-                    OnVoiceStateUpdate?.Invoke(this, new(uid.GetString() ?? string.Empty));
-
-                return;
-            }
-            case "VOICE_STATE_DELETE": {
-                if (evt.TryGetProperty("data", out var vsd) && vsd.TryGetProperty("user", out var usr) && usr.TryGetProperty("id", out var uid))
-                    OnVoiceStateDelete?.Invoke(this, new(uid.GetString() ?? string.Empty));
+            case "MESSAGE_DELETE": {
+                if (evt.TryGetProperty("data", out var msgd) &&
+                    msgd.TryGetProperty("message", out var msg) &&
+                    msg.TryGetProperty("author", out var msga))
+                    OnMessageDelete?.Invoke(this, new(
+                        msgd.GetProperty("channel_id").GetString() ?? string.Empty,
+                        msg.GetProperty("id").GetString() ?? string.Empty,
+                        msg.GetProperty("blocked").GetBoolean(),
+                        msg.GetProperty("content").GetString() ?? string.Empty,
+                        msg.GetProperty("timestamp").GetString() ?? string.Empty,
+                        msg.GetProperty("edited_timestamp").GetString() ?? string.Empty,
+                        msg.GetProperty("pinned").GetBoolean(),
+                        msga.GetProperty("id").GetString() ?? string.Empty,
+                        msga.GetProperty("username").GetString() ?? string.Empty,
+                        msga.GetProperty("bot").GetBoolean()
+                    ));
 
                 return;
             }
@@ -447,27 +564,25 @@ internal class DiscordClient(ILogger logger) : IDisposable {
 
                 return;
             }
-            case "MESSAGE_CREATE": {
-                if (evt.TryGetProperty("data", out var msg) && msg.TryGetProperty("message", out var m) && m.TryGetProperty("id", out var mid))
-                    OnMessageCreate?.Invoke(this, new(mid.GetString() ?? string.Empty));
-
-                return;
-            }
-            case "MESSAGE_UPDATE": {
-                if (evt.TryGetProperty("data", out var msg) && msg.TryGetProperty("message", out var m) && m.TryGetProperty("id", out var mid))
-                    OnMessageUpdate?.Invoke(this, new(mid.GetString() ?? string.Empty));
-
-                return;
-            }
-            case "MESSAGE_DELETE": {
-                if (evt.TryGetProperty("data", out var msg) && msg.TryGetProperty("message", out var m) && m.TryGetProperty("id", out var mid))
-                    OnMessageDelete?.Invoke(this, new(mid.GetString() ?? string.Empty));
-
-                return;
-            }
             case "NOTIFICATION_CREATE": {
-                if (evt.TryGetProperty("data", out var noti) && noti.TryGetProperty("channel_id", out var nch))
-                    OnNotificationCreate?.Invoke(this, new(nch.GetString() ?? string.Empty));
+                if (evt.TryGetProperty("data", out var notivd) &&
+                    notivd.TryGetProperty("message", out var msg) &&
+                    msg.TryGetProperty("author", out var msga))
+                    OnNotificationCreate?.Invoke(this, new(
+                        notivd.GetProperty("channel_id").GetString() ?? string.Empty,
+                        notivd.GetProperty("title").GetString() ?? string.Empty,
+                        notivd.GetProperty("body").GetString() ?? string.Empty,
+                        notivd.GetProperty("icon_url").GetString() ?? string.Empty,
+                        msg.GetProperty("id").GetString() ?? string.Empty,
+                        msg.GetProperty("blocked").GetBoolean(),
+                        msg.GetProperty("content").GetString() ?? string.Empty,
+                        msg.GetProperty("timestamp").GetString() ?? string.Empty,
+                        msg.GetProperty("edited_timestamp").GetString() ?? string.Empty,
+                        msg.GetProperty("pinned").GetBoolean(),
+                        msga.GetProperty("id").GetString() ?? string.Empty,
+                        msga.GetProperty("username").GetString() ?? string.Empty,
+                        msga.GetProperty("bot").GetBoolean()
+                    ));
 
                 return;
             }

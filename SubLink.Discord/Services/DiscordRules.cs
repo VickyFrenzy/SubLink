@@ -16,21 +16,21 @@ public sealed class DiscordRules : IPlatformRules {
 
     internal Func<Task>? OnReady;
     internal Func<DiscordErrorArgs, Task>? OnError;
-    internal Func<string, Task>? OnSelectedVoiceChannel;
+    internal Func<DiscordGuildInfoEventArgs, Task>? OnGuildStatus;
+    internal Func<DiscordGuildInfoEventArgs, Task>? OnGuildCreate;
+    internal Func<DiscordChannelCreateEventArgs, Task>? OnChannelCreate;
+    internal Func<DiscordVoiceChannelIdEventArgs, Task>? OnSelectedVoiceChannel;
     internal Func<DiscordVoiceSettingsEventArgs, Task>? OnVoiceSettingsUpdate;
+    internal Func<DiscordVoiceStateEventArgs, Task>? OnVoiceStateCreate;
+    internal Func<DiscordVoiceStateEventArgs, Task>? OnVoiceStateUpdate;
+    internal Func<DiscordVoiceStateEventArgs, Task>? OnVoiceStateDelete;
     internal Func<DiscordVoiceStatusEventArgs, Task>? OnVoiceStatusUpdate;
-    internal Func<string, Task>? OnGuildStatus;
-    internal Func<string, Task>? OnGuildCreate;
-    internal Func<DiscordChannelEventArgs, Task>? OnChannelCreate;
-    internal Func<string, Task>? OnVoiceStateCreate;
-    internal Func<string, Task>? OnVoiceStateUpdate;
-    internal Func<string, Task>? OnVoiceStateDelete;
+    internal Func<DiscordMessageEventArgs, Task>? OnMessageCreate;
+    internal Func<DiscordMessageEventArgs, Task>? OnMessageUpdate;
+    internal Func<DiscordMessageEventArgs, Task>? OnMessageDelete;
     internal Func<string, Task>? OnStartSpeaking;
     internal Func<string, Task>? OnStopSpeaking;
-    internal Func<string, Task>? OnMessageCreate;
-    internal Func<string, Task>? OnMessageUpdate;
-    internal Func<string, Task>? OnMessageDelete;
-    internal Func<string, Task>? OnNotificationCreate;
+    internal Func<DiscordNotificationEventArgs, Task>? OnNotificationCreate;
     internal Func<Task>? OnActivityJoin;
     internal Func<Task>? OnActivitySpectate;
     internal Func<string, Task>? OnActivityJoinRequest;
@@ -38,21 +38,21 @@ public sealed class DiscordRules : IPlatformRules {
     /* Reacts */
     public void ReactToReady(Func<Task> with) { OnReady = with; }
     public void ReactToError(Func<DiscordErrorArgs, Task> with) { OnError = with; }
-    public void ReactToSelectedVoiceChannel(Func<string, Task> with) { OnSelectedVoiceChannel = with; }
+    public void ReactToGuildStatus(Func<DiscordGuildInfoEventArgs, Task> with) { OnGuildStatus = with; }
+    public void ReactToGuildCreate(Func<DiscordGuildInfoEventArgs, Task> with) { OnGuildCreate = with; }
+    public void ReactToChannelCreate(Func<DiscordChannelCreateEventArgs, Task> with) { OnChannelCreate = with; }
+    public void ReactToSelectedVoiceChannel(Func<DiscordVoiceChannelIdEventArgs, Task> with) { OnSelectedVoiceChannel = with; }
     public void ReactToVoiceSettingsUpdate(Func<DiscordVoiceSettingsEventArgs, Task> with) { OnVoiceSettingsUpdate = with; }
+    public void ReactToVoiceStateCreate(Func<DiscordVoiceStateEventArgs, Task> with) { OnVoiceStateCreate = with; }
+    public void ReactToVoiceStateUpdate(Func<DiscordVoiceStateEventArgs, Task> with) { OnVoiceStateUpdate = with; }
+    public void ReactToVoiceStateDelete(Func<DiscordVoiceStateEventArgs, Task> with) { OnVoiceStateDelete = with; }
     public void ReactToVoiceStatusUpdate(Func<DiscordVoiceStatusEventArgs, Task> with) { OnVoiceStatusUpdate = with; }
-    public void ReactToGuildStatus(Func<string, Task> with) { OnGuildStatus = with; }
-    public void ReactToGuildCreate(Func<string, Task> with) { OnGuildCreate = with; }
-    public void ReactToChannelCreate(Func<DiscordChannelEventArgs, Task> with) { OnChannelCreate = with; }
-    public void ReactToVoiceStateCreate(Func<string, Task> with) { OnVoiceStateCreate = with; }
-    public void ReactToVoiceStateUpdate(Func<string, Task> with) { OnVoiceStateUpdate = with; }
-    public void ReactToVoiceStateDelete(Func<string, Task> with) { OnVoiceStateDelete = with; }
+    public void ReactToMessageCreate(Func<DiscordMessageEventArgs, Task> with) { OnMessageCreate = with; }
+    public void ReactToMessageUpdate(Func<DiscordMessageEventArgs, Task> with) { OnMessageUpdate = with; }
+    public void ReactToMessageDelete(Func<DiscordMessageEventArgs, Task> with) { OnMessageDelete = with; }
     public void ReactToStartSpeaking(Func<string, Task> with) { OnStartSpeaking = with; }
     public void ReactToStopSpeaking(Func<string, Task> with) { OnStopSpeaking = with; }
-    public void ReactToMessageCreate(Func<string, Task> with) { OnMessageCreate = with; }
-    public void ReactToMessageUpdate(Func<string, Task> with) { OnMessageUpdate = with; }
-    public void ReactToMessageDelete(Func<string, Task> with) { OnMessageDelete = with; }
-    public void ReactToNotificationCreate(Func<string, Task> with) { OnNotificationCreate = with; }
+    public void ReactToNotificationCreate(Func<DiscordNotificationEventArgs, Task> with) { OnNotificationCreate = with; }
     public void ReactToActivityJoin(Func<Task> with) { OnActivityJoin = with; }
     public void ReactToActivitySpectate(Func<Task> with) { OnActivitySpectate = with; }
     public void ReactToActivityJoinRequest(Func<string, Task> with) { OnActivityJoinRequest = with; }
