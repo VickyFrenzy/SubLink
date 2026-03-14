@@ -37,4 +37,3 @@
 - [DiscordVoiceStatusEventArgs](Types.md#DiscordVoiceStatusEventArgs)
 - [DiscordMessageEventArgs](Types.md#DiscordMessageEventArgs)
 - [DiscordNotificationEventArgs](Types.md#DiscordNotificationEventArgs)
-- [DiscordChannelEventArgs](Types.md#DiscordChannelEventArgs)
