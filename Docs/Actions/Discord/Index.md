@@ -133,6 +133,11 @@ discord.SetOutputVolume(0.25f);
 
 Subscribe to a specific Discord event.
 
+- Parameters
+   - `string` eventName - required - Name of the event to subscribe to
+   - `string` id        - optional - Event-specific ID
+- Returns: Nothing
+
 Default subscribed events:
 - READY
 - ERROR
@@ -147,29 +152,33 @@ Default subscribed events:
 - ACTIVITY_JOIN_REQUEST
 
 Available events:
-- GUILD_STATUS
-  - Requires `guild_id`
-- VOICE_STATE_CREATE
-  - Requires `channel_id`
-- VOICE_STATE_UPDATE
-  - Requires `channel_id`
-- VOICE_STATE_DELETE
-  - Requires `channel_id`
-- MESSAGE_CREATE
-  - Requires `channel_id`
-- MESSAGE_UPDATE
-  - Requires `channel_id`
-- MESSAGE_DELETE
-  - Requires `channel_id`
-- SPEAKING_START
-  - Requires `channel_id`
-- SPEAKING_STOP
-  - Requires `channel_id`
-
-- Parameters
-   - `string` eventName - required - Name of the event to subscribe to
-   - `string` id        - optional - Event-specific ID
-- Returns: Nothing
+- GUILD_STATUS  
+  Sent when a subscribed server’s state changes  
+  Requires `guild_id`
+- VOICE_STATE_CREATE  
+  Sent when a user joins a subscribed voice channel  
+  Requires `channel_id`
+- VOICE_STATE_UPDATE  
+  Sent when a user’s voice state changes in a subscribed voice channel (mute, volume, etc.)  
+  Requires `channel_id`
+- VOICE_STATE_DELETE  
+  Sent when a user parts a subscribed voice channel  
+  Requires `channel_id`
+- MESSAGE_CREATE  
+  Sent when a message is created in a subscribed text channel  
+  Requires `channel_id`
+- MESSAGE_UPDATE  
+  Sent when a message is updated in a subscribed text channel  
+  Requires `channel_id`
+- MESSAGE_DELETE  
+  Sent when a message is deleted in a subscribed text channel  
+  Requires `channel_id`
+- SPEAKING_START  
+  Sent when a user in a subscribed voice channel speaks  
+  Requires `channel_id`
+- SPEAKING_STOP  
+  Sent when a user in a subscribed voice channel stops speaking  
+  Requires `channel_id`
 
 ```csharp
 discord.SubscribeEvent("VOICE_CHANNEL_SELECT");
