@@ -33,10 +33,9 @@ internal sealed partial class DiscordService {
             if (eventName.Equals("GUILD_STATUS", StringComparison.InvariantCultureIgnoreCase)) {
                 args = new { guild_id = id };
             } else if (
-                eventName.StartsWith("VOICE_STATE", StringComparison.InvariantCultureIgnoreCase) ||
+                eventName.StartsWith("VOICE_STATE_", StringComparison.InvariantCultureIgnoreCase) ||
                 eventName.StartsWith("MESSAGE_", StringComparison.InvariantCultureIgnoreCase) ||
-                eventName.Equals("SPEAKING_START", StringComparison.InvariantCultureIgnoreCase) ||
-                eventName.Equals("SPEAKING_STOP", StringComparison.InvariantCultureIgnoreCase)
+                eventName.StartsWith("SPEAKING_", StringComparison.InvariantCultureIgnoreCase)
             ) {
                 args = new { channel_id = id };
             }
@@ -54,8 +53,7 @@ internal sealed partial class DiscordService {
             } else if (
                 eventName.StartsWith("VOICE_STATE", StringComparison.InvariantCultureIgnoreCase) ||
                 eventName.StartsWith("MESSAGE_", StringComparison.InvariantCultureIgnoreCase) ||
-                eventName.Equals("SPEAKING_START", StringComparison.InvariantCultureIgnoreCase) ||
-                eventName.Equals("SPEAKING_STOP", StringComparison.InvariantCultureIgnoreCase)
+                eventName.StartsWith("SPEAKING_", StringComparison.InvariantCultureIgnoreCase)
             ) {
                 args = new { channel_id = id };
             }
@@ -70,8 +68,8 @@ internal sealed partial class DiscordService {
     public void SelectTextChannel(string channelId) =>
         _discord?.SendCommand(1, DiscordIpcMessage.SelectTextChannel(channelId));
 
-    public void SetUserVolume(string userId, float vol) =>
-        _discord?.SendCommand(1, DiscordIpcMessage.SetUserVoiceSettings(userId, volume: (int)vol));
+    public void SetUserVolume(string userId, int vol) =>
+        _discord?.SendCommand(1, DiscordIpcMessage.SetUserVoiceSettings(userId, volume: vol));
 
     public void SetUserMute(string userId, bool mute) =>
         _discord?.SendCommand(1, DiscordIpcMessage.SetUserVoiceSettings(userId, mute: mute));

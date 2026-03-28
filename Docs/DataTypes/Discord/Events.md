@@ -23,12 +23,42 @@ discord.ReactToError(async error => {
 });
 ```
 
-## ReactToSelectedVoiceChannel
+## ReactToGuildStatus
 
-- Parameter type `string`
+- Parameter type `DiscordGuildStatusEventArgs`
 - Boilerplate
 ```csharp
-discord.ReactToSelectedVoiceChannel(async channelId => {
+discord.ReactToGuildStatus(async guild => {
+    // Your Code
+});
+```
+
+## ReactToGuildCreate
+
+- Parameter type `DiscordGuildIdNameEventArgs`
+- Boilerplate
+```csharp
+discord.ReactToGuildCreate(async guild => {
+    // Your Code
+});
+```
+
+## ReactToChannelCreate
+
+- Parameter type `DiscordChannelCreateEventArgs`
+- Boilerplate
+```csharp
+discord.ReactToChannelCreate(async channel => {
+    // Your Code
+});
+```
+
+## ReactToSelectedVoiceChannel
+
+- Parameter type `DiscordVoiceChannelIdEventArgs`
+- Boilerplate
+```csharp
+discord.ReactToSelectedVoiceChannel(async voiceChannel => {
     // Your Code
 });
 ```
@@ -43,6 +73,36 @@ discord.ReactToVoiceSettingsUpdate(async voiceSettings => {
 });
 ```
 
+## ReactToVoiceStateCreate
+
+- Parameter type `DiscordVoiceStateEventArgs`
+- Boilerplate
+```csharp
+discord.ReactToVoiceStateCreate(async voiceState => {
+    // Your Code
+});
+```
+
+## ReactToVoiceStateUpdate
+
+- Parameter type `DiscordVoiceStateEventArgs`
+- Boilerplate
+```csharp
+discord.ReactToVoiceStateUpdate(async voiceState => {
+    // Your Code
+});
+```
+
+## ReactToVoiceStateDelete
+
+- Parameter type `DiscordVoiceStateEventArgs`
+- Boilerplate
+```csharp
+discord.ReactToVoiceStateDelete(async voiceState => {
+    // Your Code
+});
+```
+
 ## ReactToVoiceStatusUpdate
 
 - Parameter type `DiscordVoiceStatusEventArgs`
@@ -53,62 +113,32 @@ discord.ReactToVoiceStatusUpdate(async voiceStatus => {
 });
 ```
 
-## ReactToGuildStatus
+## ReactToMessageCreate
 
-- Parameter type `string`
+- Parameter type `DiscordMessageEventArgs`
 - Boilerplate
 ```csharp
-discord.ReactToGuildStatus(async guildId => {
+discord.ReactToMessageCreate(async message => {
     // Your Code
 });
 ```
 
-## ReactToGuildCreate
+## ReactToMessageUpdate
 
-- Parameter type `string`
+- Parameter type `DiscordMessageEventArgs`
 - Boilerplate
 ```csharp
-discord.ReactToGuildCreate(async guildId => {
+discord.ReactToMessageUpdate(async message => {
     // Your Code
 });
 ```
 
-## ReactToChannelCreate
+## ReactToMessageDelete
 
-- Parameter type `DiscordChannelEventArgs`
+- Parameter type `DiscordMessageEventArgs`
 - Boilerplate
 ```csharp
-discord.ReactToChannelCreate(async channel => {
-    // Your Code
-});
-```
-
-## ReactToVoiceStateCreate
-
-- Parameter type `string`
-- Boilerplate
-```csharp
-discord.ReactToVoiceStateCreate(async userId => {
-    // Your Code
-});
-```
-
-## ReactToVoiceStateUpdate
-
-- Parameter type `string`
-- Boilerplate
-```csharp
-discord.ReactToVoiceStateUpdate(async userId => {
-    // Your Code
-});
-```
-
-## ReactToVoiceStateDelete
-
-- Parameter type `string`
-- Boilerplate
-```csharp
-discord.ReactToVoiceStateDelete(async userId => {
+discord.ReactToMessageDelete(async message => {
     // Your Code
 });
 ```
@@ -133,42 +163,12 @@ discord.ReactToStopSpeaking(async userId => {
 });
 ```
 
-## ReactToMessageCreate
-
-- Parameter type `string`
-- Boilerplate
-```csharp
-discord.ReactToMessageCreate(async messageId => {
-    // Your Code
-});
-```
-
-## ReactToMessageUpdate
-
-- Parameter type `string`
-- Boilerplate
-```csharp
-discord.ReactToMessageUpdate(async messageId => {
-    // Your Code
-});
-```
-
-## ReactToMessageDelete
-
-- Parameter type `string`
-- Boilerplate
-```csharp
-discord.ReactToMessageDelete(async messageId => {
-    // Your Code
-});
-```
-
 ## ReactToNotificationCreate
 
-- Parameter type `string`
+- Parameter type `DiscordNotificationEventArgs`
 - Boilerplate
 ```csharp
-discord.ReactToNotificationCreate(async channelId => {
+discord.ReactToNotificationCreate(async notification => {
     // Your Code
 });
 ```

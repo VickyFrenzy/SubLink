@@ -5,7 +5,7 @@
 ## Setup
 
 1. On the first run, the application will create a `Settings/Discord.json` file.
-2. Set the `Settings/Fansly.json` file's `Enabled` setting to `true`. (All lowercase!)
+2. Set the `Settings/Discord.json` file's `Enabled` setting to `true`. (All lowercase!)
 3. Retrieve your Client ID and Secret, using your browser.
    1. Go to the Discord developer portal: https://discord.com/developers/applications/
    2. Create a new Application by clicking on `New Application`. Give it a creative name.

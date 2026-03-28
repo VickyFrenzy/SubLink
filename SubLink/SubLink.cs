@@ -841,8 +841,16 @@ discord.ReactToError(async error => {
     logger.Information("Discord Error: ({CODE}) {MESSAGE}", error.Code, error.Message);
 });
 
-discord.ReactToSelectedVoiceChannel(async voiceChannelId => {
-    logger.Information("Discord voice channel selection changed to: {ID}", voiceChannelId);
+discord.ReactToGuildStatus(async guild => {
+    logger.Information("Discord guild status updated for {NAME} ({ID})", guild.Name, guild.Id);
+});
+
+discord.ReactToGuildCreate(async guild => {
+    logger.Information("Discord guild `{NAME}` created with ID {ID}", guild.Name, guild.Id);
+});
+
+discord.ReactToSelectedVoiceChannel(async voiceChannel => {
+    logger.Information("Discord voice channel selection changed to: {ID}", voiceChannel.ChannelId);
 });
 
 discord.ReactToVoiceSettingsUpdate(async voiceSettings => {
@@ -868,33 +876,37 @@ Discord voice settings updated.
     );
 });
 
+discord.ReactToVoiceStateCreate(async voiceState => {
+    logger.Information("Discord voice state created for `{NICKNAME}` ({ID})", voiceState.Nickname, voiceState.Id);
+});
+
+discord.ReactToVoiceStateUpdate(async voiceState => {
+    logger.Information("Discord voice state updated for `{NICKNAME}` ({ID})", voiceState.Nickname, voiceState.Id);
+});
+
+discord.ReactToVoiceStateDelete(async voiceState => {
+    logger.Information("Discord voice state deleted for `{NICKNAME}` ({ID})", voiceState.Nickname, voiceState.Id);
+});
+
 discord.ReactToVoiceStatusUpdate(async voiceStatus => {
     logger.Information("Discord voice status updated. State: {state}, State Code: {stateCode}",
         voiceStatus.State, voiceStatus.StateCode);
 });
 
-discord.ReactToGuildStatus(async guildId => {
-    logger.Information("Discord guild status updated for {ID}", guildId);
-});
-
-discord.ReactToGuildCreate(async guildId => {
-    logger.Information("Discord guild created with ID: {ID}", guildId);
-});
-
 discord.ReactToChannelCreate(async channel => {
-    logger.Information("Discord channel `{NAME}` created with ID: {ID}", channel.Name, channel.Id);
+    logger.Information("Discord channel `{NAME}` created with ID {ID}", channel.Name, channel.Id);
 });
 
-discord.ReactToVoiceStateCreate(async userId => {
-    logger.Information("Discord voice state created for user ID: {ID}", userId);
+discord.ReactToMessageCreate(async message => {
+    logger.Information("Discord message created with ID: {ID}", message.MessageId);
 });
 
-discord.ReactToVoiceStateUpdate(async userId => {
-    logger.Information("Discord voice state updated for user ID: {ID}", userId);
+discord.ReactToMessageUpdate(async message => {
+    logger.Information("Discord message updated with ID: {ID}", message.MessageId);
 });
 
-discord.ReactToVoiceStateDelete(async userId => {
-    logger.Information("Discord voice state deleted for user ID: {ID}", userId);
+discord.ReactToMessageDelete(async message => {
+    logger.Information("Discord message deleted with ID: {ID}", message.MessageId);
 });
 
 discord.ReactToStartSpeaking(async userId => {
@@ -905,20 +917,9 @@ discord.ReactToStopSpeaking(async userId => {
     logger.Information("Discord user with ID {ID} stopped speaking", userId);
 });
 
-discord.ReactToMessageCreate(async messageId => {
-    logger.Information("Discord message created with ID: {ID}", messageId);
-});
-
-discord.ReactToMessageUpdate(async messageId => {
-    logger.Information("Discord message updated with ID: {ID}", messageId);
-});
-
-discord.ReactToMessageDelete(async messageId => {
-    logger.Information("Discord message deleted with ID: {ID}", messageId);
-});
-
-discord.ReactToNotificationCreate(async channelId => {
-    logger.Information("Discord notification created for channel with ID: {ID}", channelId);
+discord.ReactToNotificationCreate(async notification => {
+    logger.Information("Discord notification created for channel `{CHANNEL_ID}`: {TITLE} \"{BODY}\"",
+        notification.ChannelId, notification.Title, notification.Body);
 });
 
 discord.ReactToActivityJoin(async () => {

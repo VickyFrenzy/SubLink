@@ -110,7 +110,7 @@ Sets the input volume to the requested amount.
 - Returns: Nothing
 
 ```csharp
-discord.SetInputVolume(0.75f);
+discord.SetInputVolume(90.75f);
 ```
 
 [Back To Legend](#Legend)
@@ -124,7 +124,7 @@ Sets the output volume to the requested amount.
 - Returns: Nothing
 
 ```csharp
-discord.SetOutputVolume(0.25f);
+discord.SetOutputVolume(93.123f);
 ```
 
 [Back To Legend](#Legend)
@@ -138,6 +138,48 @@ Subscribe to a specific Discord event.
    - `string` id        - optional - Event-specific ID
 - Returns: Nothing
 
+Default subscribed events:
+- READY
+- ERROR
+- GUILD_CREATE
+- CHANNEL_CREATE
+- VOICE_CHANNEL_SELECT
+- VOICE_SETTINGS_UPDATE
+- VOICE_CONNECTION_STATUS
+- NOTIFICATION_CREATE
+- ACTIVITY_JOIN
+- ACTIVITY_SPECTATE
+- ACTIVITY_JOIN_REQUEST
+
+Available events:
+- GUILD_STATUS  
+  Sent when a subscribed server’s state changes  
+  Requires `guild_id`
+- VOICE_STATE_CREATE  
+  Sent when a user joins a subscribed voice channel  
+  Requires `channel_id`
+- VOICE_STATE_UPDATE  
+  Sent when a user’s voice state changes in a subscribed voice channel (mute, volume, etc.)  
+  Requires `channel_id`
+- VOICE_STATE_DELETE  
+  Sent when a user parts a subscribed voice channel  
+  Requires `channel_id`
+- MESSAGE_CREATE  
+  Sent when a message is created in a subscribed text channel  
+  Requires `channel_id`
+- MESSAGE_UPDATE  
+  Sent when a message is updated in a subscribed text channel  
+  Requires `channel_id`
+- MESSAGE_DELETE  
+  Sent when a message is deleted in a subscribed text channel  
+  Requires `channel_id`
+- SPEAKING_START  
+  Sent when a user in a subscribed voice channel speaks  
+  Requires `channel_id`
+- SPEAKING_STOP  
+  Sent when a user in a subscribed voice channel stops speaking  
+  Requires `channel_id`
+
 ```csharp
 discord.SubscribeEvent("VOICE_CHANNEL_SELECT");
 discord.SubscribeEvent("SPEAKING_START", "123_channel_id_789");
@@ -147,12 +189,42 @@ discord.SubscribeEvent("SPEAKING_START", "123_channel_id_789");
 
 ## UnsubscribeEvent
 
-Unsubscribe from a specific Discord event.
+Unsubscribe from a specific Discord event.  
+Don't unsubscribe from default events, this may break functionality.
 
 - Parameters
    - `string` eventName - required - Name of the event to unsubscribe from
    - `string` id        - optional - Event-specific ID
 - Returns: Nothing
+
+Available events:
+- GUILD_STATUS  
+  Sent when a subscribed server’s state changes  
+  Requires `guild_id`
+- VOICE_STATE_CREATE  
+  Sent when a user joins a subscribed voice channel  
+  Requires `channel_id`
+- VOICE_STATE_UPDATE  
+  Sent when a user’s voice state changes in a subscribed voice channel (mute, volume, etc.)  
+  Requires `channel_id`
+- VOICE_STATE_DELETE  
+  Sent when a user parts a subscribed voice channel  
+  Requires `channel_id`
+- MESSAGE_CREATE  
+  Sent when a message is created in a subscribed text channel  
+  Requires `channel_id`
+- MESSAGE_UPDATE  
+  Sent when a message is updated in a subscribed text channel  
+  Requires `channel_id`
+- MESSAGE_DELETE  
+  Sent when a message is deleted in a subscribed text channel  
+  Requires `channel_id`
+- SPEAKING_START  
+  Sent when a user in a subscribed voice channel speaks  
+  Requires `channel_id`
+- SPEAKING_STOP  
+  Sent when a user in a subscribed voice channel stops speaking  
+  Requires `channel_id`
 
 ```csharp
 discord.UnsubscribeEvent("VOICE_CHANNEL_SELECT");
@@ -197,11 +269,11 @@ Sets the voice volume for another user.
 
 - Parameters
    - `string` userId - required - ID of the user to set the volume for
-   - `float`  vol    - required - Volume to set the user to
+   - `int`    vol    - required - Volume to set the user to
 - Returns: Nothing
 
 ```csharp
-discord.SetUserVolume("123_user_id_789", 0.15f);
+discord.SetUserVolume("123_user_id_789", 50);
 ```
 
 [Back To Legend](#Legend)

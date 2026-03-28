@@ -1,4 +1,4 @@
-$version = "3.4.2";
+$version = "3.4.6";
 
 $currentDir = (Get-Item $MyInvocation.MyCommand.Path).Directory.FullName;
 
