@@ -32,9 +32,9 @@ if (-not (Test-Path -Path "builds")) {
     New-Item -Path "builds" -ItemType Directory;
 }
 
-if (Test-Path builds\SubLink-$version.zip) {
-    Remove-Item builds\SubLink-$version.zip;
+if (Test-Path builds\SubLink-$version-win-x64.zip) {
+    Remove-Item builds\SubLink-$version-win-x64.zip;
 }
 
-Compress-Archive -Path "build-$version\*" -destinationpath "builds\SubLink-$version.zip" -compressionlevel optimal;
+Compress-Archive -Path "build-$version\*" -destinationpath "builds\SubLink-$version-win-x64.zip" -compressionlevel optimal;
 Remove-Item build-$version -Recurse;
