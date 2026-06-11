@@ -4,7 +4,10 @@ using System.Text.Json.Serialization;
 namespace xyz.yewnyx.SubLink.Joystick.Client.Data.Command;
 
 public interface IBaseCommand {
+    [JsonPropertyName("command")]
     string Command { get; }
+
+    [JsonPropertyName("identifier")]
     string Identifier { get; }
 }
 
@@ -19,15 +22,14 @@ public abstract class BaseCommand : IBaseCommand {
         WriteIndented = false
     };
 
-    [JsonPropertyName("command")]
     public virtual string Command { get; } = string.Empty;
-    [JsonPropertyName("identifier")]
+
     public string Identifier { get => SerializeIdent; }
+
     [JsonPropertyName("data")]
     public string Data { get => SerializeData(); }
 
-    internal virtual string SerializeIdent =>
-        "{\"channel\":\"GatewayChannel\"}";
+    internal virtual string SerializeIdent => "{\"channel\":\"GatewayChannel\"}";
 
     internal abstract string SerializeData();
 }

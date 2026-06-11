@@ -7,16 +7,24 @@ public sealed class MuteUser : BaseCommand {
     public class ChatData {
         [JsonPropertyName("action")]
         public readonly string Action = "mute_user";
+
         [JsonPropertyName("messageId")]
         public string MessageId { get; set; } = string.Empty;
+
         [JsonPropertyName("channelId")]
         public string ChannelId { get; set; } = string.Empty;
     }
 
     public override string Command { get; } = "message";
+
     [JsonIgnore]
     public readonly ChatData Message = new();
 
     internal override string SerializeData() =>
         JsonSerializer.Serialize(Message, _options);
+
+    public MuteUser() { }
+
+    public MuteUser(string messageId, string channelId) =>
+        (Message.MessageId, Message.ChannelId) = (messageId, channelId);
 }

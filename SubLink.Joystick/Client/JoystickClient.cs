@@ -1,14 +1,15 @@
 ﻿using Serilog;
 using SuperSocket.ClientEngine;
 using System;
+using System.Text.Encodings.Web;
 using System.Text.Json;
 using System.Text.Json.Nodes;
 using System.Text.Json.Serialization.Metadata;
 using System.Threading.Tasks;
 using WebSocket4Net;
-using xyz.yewnyx.SubLink.Joystick.Client.Data;
 using xyz.yewnyx.SubLink.Joystick.Client.Data.Command;
 using xyz.yewnyx.SubLink.Joystick.Client.Data.Event;
+using xyz.yewnyx.SubLink.Joystick.Client.Data.Message;
 using xyz.yewnyx.SubLink.Joystick.Client.Data.Response;
 using xyz.yewnyx.SubLink.Joystick.Client.OAuth;
 
@@ -16,13 +17,12 @@ namespace xyz.yewnyx.SubLink.Joystick.Client;
 
 internal sealed class JoystickClient(ILogger logger) {
     private const string CUserAgent = "SubLink JoystickClient/1.0";
-    private const string CSubscribeCommand = "{\"command\":\"subscribe\",\"identifier\": \"{\\\"channel\\\":\\\"GatewayChannel\\\"}\"}";
-    private const string CUnsubscribeCommand = "{\"command\":\"unsubscribe\",\"identifier\": \"{\\\"channel\\\":\\\"GatewayChannel\\\"}\"}";
-    private static readonly JsonSerializerOptions _deserializationOpt = new() {
+    internal static readonly JsonSerializerOptions _deserializationOpt = new() {
         AllowOutOfOrderMetadataProperties = true
     };
-    private static readonly JsonSerializerOptions _serializationOpt = new() {
-        WriteIndented = false
+    internal static readonly JsonSerializerOptions _serializationOpt = new() {
+        WriteIndented = false,
+        Encoder = JavaScriptEncoder.UnsafeRelaxedJsonEscaping
     };
 
     private readonly ILogger _logger = logger;
@@ -32,6 +32,13 @@ internal sealed class JoystickClient(ILogger logger) {
     public event EventHandler? OnJoystickConnected;
     public event EventHandler? OnJoystickDisconnected;
     public event EventHandler<JoystickErrorEventArgs>? OnJoystickError;
+    public event EventHandler<JoystickChatMessageEventArgs>? OnJoystickChatMessage;
+    public event EventHandler<JoystickBotMessageEventArgs>? OnJoystickBotMessage;
+    public event EventHandler<JoystickEnterStreamEventArgs>? OnJoystickEnterStream;
+    public event EventHandler<JoystickLeaveStreamEventArgs>? OnJoystickLeaveStream;
+    public event EventHandler<JoystickStartedEventArgs>? OnJoystickStarted;
+    public event EventHandler<JoystickChatTimersClearedEventArgs>? OnJoystickChatTimersCleared;
+
 
     public bool Enabled { get; internal set; } = false;
 
@@ -110,20 +117,50 @@ internal sealed class JoystickClient(ILogger logger) {
         OnJoystickError?.Invoke(this, new(e.Exception));
 
     private void OnSockMessageReceived(object? sender, MessageReceivedEventArgs e) {
-        var jsonObj = JsonDocument.Parse(e.Message, new JsonDocumentOptions { MaxDepth = 1, AllowTrailingCommas = true, CommentHandling = JsonCommentHandling.Skip });
+        var jsonObj = JsonDocument.Parse(e.Message, new JsonDocumentOptions { AllowTrailingCommas = true, CommentHandling = JsonCommentHandling.Skip });
         if (jsonObj == null) return;
 
-        if (jsonObj.RootElement.TryGetProperty("type", out _)) {
-            HandleResponseMessage(e.Message);
-            return;
-        }
+        try {
+            if (jsonObj.RootElement.TryGetProperty("type", out _)) {
+                HandleResponseMessage(e.Message);
+                return;
+            }
 
-        if (jsonObj.RootElement.TryGetProperty("identifier", out _)) {
-            HandleEventMessage(e.Message);
-            return;
-        }
+            if (jsonObj.RootElement.TryGetProperty("identifier", out _)) {
+                // Handle "message" events
+                if (jsonObj.RootElement.TryGetProperty("message", out var msgObject) &&
+                    msgObject.TryGetProperty("event", out var eventObject) &&
+                    msgObject.TryGetProperty("type", out var typeObject)
+                ) {
+                    var messageJson = msgObject.GetRawText();
 
-        _logger.Warning("[{TAG}] Unknown data received, message: {Message}", Platform.PlatformName, e.Message);
+                    // Handle some specials that differ from the norm
+                    if ("ChatMessage".Equals(eventObject.GetString(), StringComparison.OrdinalIgnoreCase) &&
+                        "new_message".Equals(typeObject.GetString(), StringComparison.OrdinalIgnoreCase)
+                    ) {
+                        HandleChatMessage(messageJson);
+                        return;
+                    }
+
+                    if ("BotMessage".Equals(eventObject.GetString(), StringComparison.OrdinalIgnoreCase) &&
+                        "event_bot_message".Equals(typeObject.GetString(), StringComparison.OrdinalIgnoreCase)
+                    ) {
+                        HandleBotMessage(messageJson);
+                        return;
+                    }
+
+                    // Handle "normal" events
+                    HandleEventMessage(messageJson);
+                    return;
+                }
+
+                // Place-holder I guess
+            }
+
+            _logger.Warning("[{TAG}] Unknown data received, message: {Message}", Platform.PlatformName, e.Message);
+        } catch (Exception ex) {
+            _logger.Error("[{TAG}] Exception raised while trying to handle JSON data:\nData: {Data}\nMessage: {Message}", Platform.PlatformName, e.Message, ex.ToString());
+        }
     }
 
     private void OnSockDataReceived(object? sender, DataReceivedEventArgs e) =>
@@ -148,14 +185,11 @@ internal sealed class JoystickClient(ILogger logger) {
         IBaseResponse? inMsg = JsonSerializer.Deserialize<IBaseResponse>(message, _deserializationOpt);
         if (inMsg == null) return;
 
-        if (!(inMsg is Welcome || inMsg is Ping))
-            _logger.Warning("[{TAG}] HandleResponseMessage, message: {Message}", Platform.PlatformName, message);
-
         switch (inMsg) {
             case Welcome: {
                 _logger.Information("[{TAG}] Welcome received", Platform.PlatformName);
                 // We, SubLink, should only subscribe to the GatewayChannel
-                SendString(CSubscribeCommand);
+                SendCommand(new Subscribe());
                 return;
             }
             case Ping: return; // Ignore, annoying and useless for anything other than keeping the socket alive
@@ -190,14 +224,75 @@ internal sealed class JoystickClient(ILogger logger) {
         }
     }
 
+    private void HandleChatMessage(string message) {
+        var inMsg = JsonSerializer.Deserialize<NewMessageEvent>(message, _deserializationOpt);
+
+        if (inMsg != null)
+            OnJoystickChatMessage?.Invoke(this, new() {
+                CreatedAt = inMsg.CreatedAt,
+                Text = inMsg.Text,
+                MessageId = inMsg.MessageId,
+                Visibility = inMsg.Visibility,
+                BotCommand = inMsg.BotCommand ?? string.Empty,
+                BotCommandArg = inMsg.BotCommandArg ?? string.Empty,
+                EmotesUsed = inMsg.EmotesUsed,
+                AuthorSlug = inMsg.Author.Slug,
+                AuthorUsername = inMsg.Author.Username,
+                AuthorNickname = inMsg.Author.Nickname ?? string.Empty,
+                AuthorIsStreamer = inMsg.Author.IsStreamer,
+                AuthorIsModerator = inMsg.Author.IsModerator,
+                AuthorIsSubscriber = inMsg.Author.IsSubscriber,
+                AuthorIsVerified = inMsg.Author.IsVerified,
+                AuthorIsContentCreator = inMsg.Author.IsContentCreator,
+                StreamerSlug = inMsg.Streamer.Slug,
+                StreamerUsername = inMsg.Streamer.Username,
+                ChannelId = inMsg.ChannelId,
+                Mention = inMsg.Mention,
+                MentionedUsername = inMsg.MentionedUsername ?? string.Empty,
+                Highlight = inMsg.Highlight
+            });
+    }
+
+    private void HandleBotMessage(string message) {
+        var inMsg = JsonSerializer.Deserialize<BotMessageEvent>(message, _deserializationOpt);
+
+        if (inMsg != null)
+            OnJoystickBotMessage?.Invoke(this, new()
+            {
+                CreatedAt = inMsg.CreatedAt,
+                Text = inMsg.Text,
+                MessageId = inMsg.MessageId,
+                Visibility = inMsg.Visibility,
+                EmotesUsed = inMsg.EmotesUsed,
+                AuthorUsername = inMsg.Author.Username,
+                Mention = inMsg.Mention
+            });
+    }
+
     private void HandleEventMessage(string message) {
         _logger.Warning("[{TAG}] HandleEventMessage, message: {Message}", Platform.PlatformName, message);
         IBaseEvent? inMsg = JsonSerializer.Deserialize<IBaseEvent>(message, _deserializationOpt);
         if (inMsg == null) return;
 
         switch (inMsg) {
+            case EnterStreamEvent: {
+                EnterStreamEvent eventMsg = (EnterStreamEvent)inMsg;
+                OnJoystickEnterStream?.Invoke(this, new(eventMsg.Text, eventMsg.CreatedAt));
+                return;
+            }
+            case LeaveStreamEvent: {
+                LeaveStreamEvent eventMsg = (LeaveStreamEvent)inMsg;
+                OnJoystickLeaveStream?.Invoke(this, new(eventMsg.Text, eventMsg.CreatedAt));
+                return;
+            }
             case StartedEvent: {
                 StartedEvent eventMsg = (StartedEvent)inMsg;
+                OnJoystickStarted?.Invoke(this, new(eventMsg.Text, eventMsg.CreatedAt, eventMsg.Metadata.Who));
+                return;
+            }
+            case ChatTimersClearedEvent: {
+                ChatTimersClearedEvent eventMsg = (ChatTimersClearedEvent)inMsg;
+                OnJoystickChatTimersCleared?.Invoke(this, new(eventMsg.Text, eventMsg.CreatedAt, eventMsg.Metadata.Who));
                 return;
             }
             default: {

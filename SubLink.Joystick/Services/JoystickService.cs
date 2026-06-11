@@ -66,7 +66,7 @@ internal sealed partial class JoystickService {
 
         if (await _client.ConnectAsync(_settings)) {
             _jopystickLoggedInScope = _serviceScopeFactory.CreateScope();
-            //_rules.SetService(this);
+            _rules.SetService(this);
         } else {
             _logger.Warning("[{TAG}] Failed to connect to websocket", Platform.PlatformName);
             _applicationLifetime.StopApplication();

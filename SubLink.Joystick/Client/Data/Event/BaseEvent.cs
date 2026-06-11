@@ -4,7 +4,6 @@ namespace xyz.yewnyx.SubLink.Joystick.Client.Data.Event;
 
 /*
 Types:
-- Started (event = StreamEvent)
 - StreamResuming (event = StreamEvent)
 - StreamEnding (event = StreamEvent)
 - Ended (event = StreamEvent)
@@ -22,7 +21,6 @@ Types:
 - TipMenuItemUnlocked (event = StreamEvent)
 
 - ChatTimerStarted (event = StreamEvent)
-- ChatTimersCleared (event = StreamEvent)
 
 - DropinStream (event = StreamEvent)
 - StreamDroppedIn (event = StreamEvent)
@@ -54,32 +52,48 @@ Types:
 - DeviceSettingsUpdated (event = StreamEvent)
 
 - ChatMessageReceived (event = StreamEvent)
-- new_message (event = ChatMessage)
-- event_bot_message (event = BotMessage)
-- enter_stream (event = UserPresence)
 */
 [JsonPolymorphic(
     UnknownDerivedTypeHandling = JsonUnknownDerivedTypeHandling.FallBackToNearestAncestor,
     TypeDiscriminatorPropertyName = "type"
 )]
+[JsonDerivedType(typeof(EnterStreamEvent), "enter_stream")]
+[JsonDerivedType(typeof(LeaveStreamEvent), "leave_stream")]
 [JsonDerivedType(typeof(StartedEvent), "Started")]
+[JsonDerivedType(typeof(ChatTimersClearedEvent), "ChatTimersCleared")]
 public interface IBaseEvent {
+    [JsonPropertyName("id")]
     string Id { get; set; }
+    [JsonPropertyName("event")]
     string Event { get; set; }
+    [JsonPropertyName("text")]
     string Text { get; set; }
+    [JsonPropertyName("channelId")]
     string ChannelId { get; set; }
+    [JsonPropertyName("createdAt")]
     string CreatedAt { get; set; }
+    [JsonPropertyName("metadata")]
+    string JsonMetaObj { get; set; }
 }
 
-public abstract class  BaseEvent : IBaseEvent {
-    [JsonPropertyName("id")]
+public abstract class  BaseMessage : IBaseEvent {
     public string Id { get; set; } = string.Empty;
-    [JsonPropertyName("event")]
     public string Event { get; set; } = string.Empty;
-    [JsonPropertyName("text")]
     public string Text { get; set; } = string.Empty;
-    [JsonPropertyName("channelId")]
     public string ChannelId { get; set; } = string.Empty;
-    [JsonPropertyName("createdAt")]
     public string CreatedAt { get; set; } = string.Empty;
+    internal string _metadataStr = string.Empty;
+    public string JsonMetaObj {
+        get {
+            GetMetadata();
+            return _metadataStr;
+        }
+        set {
+            _metadataStr = value;
+            SetMetadata();
+        }
+    }
+
+    internal virtual void SetMetadata() { }
+    internal virtual void GetMetadata() { }
 }

@@ -3,7 +3,7 @@ using System.Text.Json.Serialization;
 
 namespace xyz.yewnyx.SubLink.Joystick.Client.Data.Event;
 
-internal class StartedEvent : BaseMessage {
+internal class ChatTimersClearedEvent : BaseMessage {
     public class MetadataType {
         [JsonPropertyName("who")]
         public string Who { get; private set; } = string.Empty;
