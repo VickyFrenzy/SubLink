@@ -46,28 +46,27 @@ namespace xyz.yewnyx.SubLink.Joystick.Client.Data.Event;
 [JsonDerivedType(typeof(DeviceConnectedEvent), "DeviceConnected")]
 [JsonDerivedType(typeof(DeviceDisconnectedEvent), "DeviceDisconnected")]
 [JsonDerivedType(typeof(DeviceSettingsUpdatedEvent), "DeviceSettingsUpdated")]
-public interface IBaseEvent {
-    [JsonPropertyName("id")]
-    string Id { get; set; }
-    [JsonPropertyName("event")]
-    string Event { get; set; }
-    [JsonPropertyName("text")]
-    string Text { get; set; }
-    [JsonPropertyName("channelId")]
-    string ChannelId { get; set; }
-    [JsonPropertyName("createdAt")]
-    string CreatedAt { get; set; }
-    [JsonPropertyName("metadata")]
-    string JsonMetaObj { get; set; }
-}
+public interface IBaseEvent { }
 
 public abstract class  BaseMessage : IBaseEvent {
+    [JsonPropertyName("id")]
     public string Id { get; set; } = string.Empty;
+
+    [JsonPropertyName("event")]
     public string Event { get; set; } = string.Empty;
+
+    [JsonPropertyName("text")]
     public string Text { get; set; } = string.Empty;
+
+    [JsonPropertyName("channelId")]
     public string ChannelId { get; set; } = string.Empty;
+
+    [JsonPropertyName("createdAt")]
     public string CreatedAt { get; set; } = string.Empty;
+
     internal string _metadataStr = string.Empty;
+
+    [JsonPropertyName("metadata")]
     public string JsonMetaObj {
         get {
             GetMetadata();
