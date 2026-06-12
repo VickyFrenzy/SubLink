@@ -3,7 +3,7 @@ using System.Text.Json.Serialization;
 
 namespace xyz.yewnyx.SubLink.Joystick.Client.Data.Response;
 
-public sealed class RejectSubscription : BaseResponse {
+public sealed class RejectSubscription : IBaseResponse {
     public class CSIdent {
         [JsonPropertyName("channel")]
         public string Channel { get; set; } = string.Empty;

@@ -3,24 +3,7 @@ using System.Text.Json.Serialization;
 
 namespace xyz.yewnyx.SubLink.Joystick.Client.Data.Response;
 
-/*
-{"command":"unsubscribe","identifier":"{\"channel\":\"WhisperChatChannel\",\"stream_id\":\"zaninibbles\",\"user_id\":\"laurarozier\"}"}
-{ "type":"confirm_unsubscription","identifier":"{\"channel\":\"WhisperChatChannel\",\"stream_id\":\"zaninibbles\",\"user_id\":\"laurarozier\"}"}
-
-{ "command":"unsubscribe","identifier":"{\"channel\":\"ChatChannel\",\"stream_id\":\"zaninibbles\"}"}
-{ "type":"confirm_unsubscription","identifier":"{\"channel\":\"ChatChannel\",\"stream_id\":\"zaninibbles\"}"}
-
-{ "command":"unsubscribe","identifier":"{\"channel\":\"ApplicationChannel\"}"}
-{ "type":"confirm_unsubscription","identifier":"{\"channel\":\"ApplicationChannel\"}"}
-
-{ "command":"unsubscribe","identifier":"{\"channel\":\"SystemEventChannel\",\"user_id\":\"laurarozier\"}"}
-{ "type":"confirm_unsubscription","identifier":"{\"channel\":\"SystemEventChannel\",\"user_id\":\"laurarozier\"}"}
-
-{ "command":"unsubscribe","identifier":"{\"channel\":\"EventLogChannel\",\"stream_id\":\"zaninibbles\"}"}
-{ "type":"confirm_unsubscription","identifier":"{\"channel\":\"EventLogChannel\",\"stream_id\":\"zaninibbles\"}"}
-*/
-
-public sealed class ConfirmUnsubscription : BaseResponse {
+public sealed class ConfirmUnsubscription : IBaseResponse {
     public class CSIdent {
         [JsonPropertyName("channel"), JsonRequired]
         public string Channel { get; set; } = string.Empty;

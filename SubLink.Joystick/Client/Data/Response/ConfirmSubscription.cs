@@ -3,24 +3,7 @@ using System.Text.Json.Serialization;
 
 namespace xyz.yewnyx.SubLink.Joystick.Client.Data.Response;
 
-/*
-{ "command":"subscribe","identifier":"{\"channel\":\"EventLogChannel\",\"stream_id\":\"vexa_io\"}"}
-{ "type":"confirm_subscription","identifier":"{\"channel\":\"EventLogChannel\",\"stream_id\":\"vexa_io\"}"}
-
-{ "command":"subscribe","identifier":"{\"channel\":\"ApplicationChannel\"}"}
-{ "type":"confirm_subscription","identifier":"{\"channel\":\"ApplicationChannel\"}"}
-
-{ "command":"subscribe","identifier":"{\"channel\":\"SystemEventChannel\",\"user_id\":\"laurarozier\"}"}
-{ "type":"confirm_subscription","identifier":"{\"channel\":\"SystemEventChannel\",\"user_id\":\"laurarozier\"}"}
-
-{ "command":"subscribe","identifier":"{\"channel\":\"WhisperChatChannel\",\"stream_id\":\"vexa_io\",\"user_id\":\"laurarozier\"}"}
-{ "type":"confirm_subscription","identifier":"{\"channel\":\"WhisperChatChannel\",\"stream_id\":\"vexa_io\",\"user_id\":\"laurarozier\"}"}
-
-{ "command":"subscribe","identifier":"{\"channel\":\"ChatChannel\",\"stream_id\":\"vexa_io\"}"}
-{ "type":"confirm_subscription","identifier":"{\"channel\":\"ChatChannel\",\"stream_id\":\"vexa_io\"}"}
-*/
-
-public sealed class ConfirmSubscription : BaseResponse {
+public sealed class ConfirmSubscription : IBaseResponse {
     public class CSIdent {
         [JsonPropertyName("channel"), JsonRequired]
         public string Channel { get; set; } = string.Empty;
