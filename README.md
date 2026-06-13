@@ -4,29 +4,13 @@
 
 SubLink is an application for creating scriptable integrations between VRChat and streaming platforms (like Twitch and Kick) through OSC. You can customize your `SubLink.cs` file (included with the build) to respond to stream events with OSC and more.
 
-## Special Thanks
+Development is led by [LauraRozier](https://onlylaura.nl/), with the foundations of SubLink originally implemented by [yewnyx](https://github.com/yewnyx) in collaboration with [CatGirlEddie](https://www.twitch.tv/catgirleddie). 
 
-A big thank you to [CatGirlEddie](https://www.twitch.tv/catgirleddie), my collaborator on the avatar side of SubLink, for her invaluable contributions and expertise to SubLink-compatible avatar creation, and to LauraRozier, without whom the additional support for Kick, StreamElements, and other services would not be possible.
+SubLink has been stable in the long term. Updates are sporadic and usually done to add support or maintain old support rather than substantially changing. The project is not going anywhere, and feedback and contributions are more than welcome - additional collaborators are encouraged and appreciated!
 
 ## Discord
 
 If you need help, feel free to reach out on Twitter or on Discord!
-
-## Featured Streamers
-
-[SubLink](https://github.com/yewnyx/SubLink) for Twitch is used by the following notable streamers (and more):
-
-- [Roflgator](https://www.twitch.tv/roflgator)
-- [Aeriy](https://www.twitch.tv/aeriy)
-- [MikaMoonlight](https://www.twitch.tv/mikamoonlight)
-- [ThatOneRebel](https://www.twitch.tv/thatonerebel)
-- [Idoliii](https://www.twitch.tv/idoliii)
-
-## Status
-
-SubLink is currently very stable, and has been for over a year. I'm hitting pause on my personal contributions due to time constraints, but I'm not going anywhere, and can provide updates to resolve stability issues, or offer feedback on any contributions to SubLink as a whole. I would welcome contributions from the community; additional collaborators are encouraged and appreciated.
-
-CatGirlEddie remains actively involved with and the foremost expert on creating and integrating SubLink features and animations into avatars.
 
 ## Setup
 
