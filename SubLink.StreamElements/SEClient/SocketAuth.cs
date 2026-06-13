@@ -1,6 +1,6 @@
 ﻿using System.Text.Json.Serialization;
 
-namespace xyz.yewnyx.SubLink.StreamElements.SEClient;
+namespace tech.SubLink.StreamElements.SEClient;
 
 internal sealed class SocketAuth {
     [JsonPropertyName("method")]

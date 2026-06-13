@@ -3,10 +3,10 @@ using JetBrains.Annotations;
 using Serilog;
 using System.Reflection;
 using VRC.OSCQuery;
-using xyz.yewnyx.SubLink.Platforms;
-using xyz.yewnyx.SubLink.Utility;
+using tech.SubLink.Platforms;
+using tech.SubLink.Utility;
 
-namespace xyz.yewnyx;
+namespace tech.SubLink;
 
 internal static class HostGlobals {
     public struct PlatformInfo {

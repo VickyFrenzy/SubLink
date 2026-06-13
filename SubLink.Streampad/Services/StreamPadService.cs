@@ -8,7 +8,7 @@ using JetBrains.Annotations;
 using Microsoft.Extensions.Options;
 using Serilog;
 
-namespace xyz.yewnyx.SubLink.Streampad.Services;
+namespace tech.SubLink.Streampad.Services;
 
 [UsedImplicitly]
 internal sealed class StreamPadService {

@@ -7,7 +7,7 @@ using System.Text.Json;
 using System.Threading;
 using System.Threading.Tasks;
 
-namespace xyz.yewnyx.SubLink.Discord.Client;
+namespace tech.SubLink.Discord.Client;
 
 internal class DiscordClient(ILogger logger) : IDisposable {
     private NamedPipeClientStream? _pipeClient;

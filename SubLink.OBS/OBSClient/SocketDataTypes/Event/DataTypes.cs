@@ -1,7 +1,7 @@
 using System.Text.Json.Nodes;
 using System.Text.Json.Serialization;
 
-namespace xyz.yewnyx.SubLink.OBS.OBSClient.SocketDataTypes.Event;
+namespace tech.SubLink.OBS.OBSClient.SocketDataTypes.Event;
 
 public abstract class EventDataType {
     [JsonPropertyName("eventType")]

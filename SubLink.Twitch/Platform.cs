@@ -7,10 +7,10 @@ using System.Collections.Generic;
 using System.IO;
 using System.Threading.Tasks;
 using TwitchLib.EventSub.Websockets.Extensions;
-using xyz.yewnyx.SubLink.Platforms;
-using xyz.yewnyx.SubLink.Twitch.Services;
+using tech.SubLink.Platforms;
+using tech.SubLink.Twitch.Services;
 
-namespace xyz.yewnyx.SubLink.Twitch;
+namespace tech.SubLink.Twitch;
 
 public class Platform : IPlatform {
     internal const string PlatformName = "Twitch";
@@ -41,7 +41,7 @@ public class Platform : IPlatform {
         "TwitchLib.EventSub.Core.SubscriptionTypes.Extension",
         "TwitchLib.EventSub.Core.SubscriptionTypes.Stream",
         "TwitchLib.EventSub.Core.SubscriptionTypes.User",
-        "xyz.yewnyx.SubLink.Twitch.Services",
+        "tech.SubLink.Twitch.Services",
     ];
     public string[] GetAdditionalAssemblies() => [];
 

@@ -2,9 +2,9 @@
 using System.Text.Json;
 using System.Threading.Tasks;
 using PusherClient;
-using xyz.yewnyx.SubLink.Kick.KickClient.Events;
+using tech.SubLink.Kick.KickClient.Events;
 
-namespace xyz.yewnyx.SubLink.Kick.KickClient;
+namespace tech.SubLink.Kick.KickClient;
 
 internal sealed class KickPusherClient {
     private Pusher? _pusher = null;

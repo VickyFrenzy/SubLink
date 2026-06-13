@@ -1,7 +1,7 @@
 ﻿using System.Threading.Tasks;
-using xyz.yewnyx.SubLink.OBS.OBSClient.SocketDataTypes;
+using tech.SubLink.OBS.OBSClient.SocketDataTypes;
 
-namespace xyz.yewnyx.SubLink.OBS.Services;
+namespace tech.SubLink.OBS.Services;
 
 internal sealed partial class OBSService {
     public async Task SetSourceFilterEnabledAsync(string sourceName, string filterName, bool enabled) {

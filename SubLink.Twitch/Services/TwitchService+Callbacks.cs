@@ -8,7 +8,7 @@ using TwitchLib.EventSub.Core.EventArgs.Channel;
 using TwitchLib.EventSub.Core.EventArgs.Stream;
 using TwitchLib.EventSub.Websockets.Core.EventArgs;
 
-namespace xyz.yewnyx.SubLink.Twitch.Services;
+namespace tech.SubLink.Twitch.Services;
 
 internal sealed partial class TwitchService {
     private void WireCallbacks() {

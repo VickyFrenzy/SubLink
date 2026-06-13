@@ -1,4 +1,4 @@
-<img src="Icon/SubLink.png" alt="SubLink Logo" title="SubLink Logo" width="100" height="100">&nbsp;&nbsp;<img src="Icon/SubLinkKick.png" alt="SubLinkKick Logo" title="SubLinkKick Logo" width="100" height="100">&nbsp;&nbsp;<img src="Icon/SubLinkStreamElements.png" alt="SubLinkStreamElements Logo" title="SubLinkStreamElements Logo" width="100" height="100">&nbsp;&nbsp;<img src="Icon/SubLinkFansly.png" alt="SubLinkFansly Logo" title="SubLinkFansly Logo" width="100" height="100">&nbsp;&nbsp;<img src="Icon/SubLinkOBS.png" alt="SubLinkOBS Logo" title="SubLinkOBS Logo" width="100" height="100">&nbsp;&nbsp;<img src="Icon/SubLinkOpenShock.png" alt="SubLinkOpenShock Logo" title="SubLinkOpenShock Logo" width="100" height="100">
+<img src="Icon/SubLink.png" alt="SubLink Logo" title="SubLink Logo" width="100" height="100">&nbsp;&nbsp;<img src="Icon/SubLinkKick.png" alt="SubLinkKick Logo" title="SubLinkKick Logo" width="100" height="100">&nbsp;&nbsp;<img src="Icon/SubLinkStreamElements.png" alt="SubLinkStreamElements Logo" title="SubLinkStreamElements Logo" width="100" height="100">&nbsp;&nbsp;<img src="Icon/SubLinkOBS.png" alt="SubLinkOBS Logo" title="SubLinkOBS Logo" width="100" height="100">
 
 # SubLink
 
@@ -16,31 +16,23 @@ If you need help, feel free to reach out on Twitter or on Discord!
 
 - [Twitch Setup](Docs/Setup/Twitch.md)
 - [Kick Setup](Docs/Setup/Kick.md)
-- [Fansly Setup](Docs/Setup/Fansly.md)
 - [StreamElements Setup](Docs/Setup/StreamElements.md)
 - [OBS Setup](Docs/Setup/OBS.md)
-- [OpenShock Setup](Docs/Setup/OpenShock.md)
 - [Discord Setup](Docs/Setup/Discord.md)
-- [Joystick Setup](Docs/Setup/Joystick.md)
 
 ## Data Types
 
 - [Twitch Data Types](Docs/DataTypes/Twitch/Index.md)
 - [Kick Data Types](Docs/DataTypes/Kick/Index.md)
-- [Fansly Data Types](Docs/DataTypes/Fansly/Index.md)
 - [StreamElements Data Types](Docs/DataTypes/StreamElements/Index.md)
 - [StreamPad Data Types](Docs/DataTypes/StreamPad/Index.md)
 - [OBS Data Types](Docs/DataTypes/OBS/Index.md)
-- [OpenShock Data Types](Docs/DataTypes/OpenShock/Index.md)
 - [Discord Data Types](Docs/DataTypes/Discord/Index.md)
-- [Joystick Data Types](Docs/DataTypes/Joystick/Index.md)
 
 ## Actions
 
 - [OBS Actions](Docs/Actions/OBS/Index.md)
-- [OpenShock Actions](Docs/Actions/OpenShock/Index.md)
 - [Discord Actions](Docs/Actions/Discord/Index.md)
-- [Joystick Actions](Docs/Actions/Joystick/Index.md)
 
 ## Adding Support to Avatars
 

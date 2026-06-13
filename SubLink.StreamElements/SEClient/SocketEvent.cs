@@ -1,7 +1,7 @@
 ﻿using System.Collections.Generic;
 using System.Text.Json.Serialization;
 
-namespace xyz.yewnyx.SubLink.StreamElements.SEClient;
+namespace tech.SubLink.StreamElements.SEClient;
 
 internal sealed class SocketEvent {
     [JsonPropertyName("type")]

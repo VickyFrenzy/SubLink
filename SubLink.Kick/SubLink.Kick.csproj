@@ -5,7 +5,7 @@
     <Configurations>Debug;Release</Configurations>
     <Platforms>AnyCPU</Platforms>
     <ApplicationIcon>..\Icon\SubLinkKick.ico</ApplicationIcon>
-    <RootNamespace>xyz.yewnyx.SubLink.Kick</RootNamespace>
+    <RootNamespace>tech.SubLink.Kick</RootNamespace>
     <Authors>yewnyx</Authors>
     <Product>SubLink</Product>
     <Description>SubLink programmable streamer app</Description>

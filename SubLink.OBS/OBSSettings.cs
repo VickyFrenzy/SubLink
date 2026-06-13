@@ -1,7 +1,7 @@
 ﻿using Microsoft.Extensions.Configuration;
 using System.Text.Json.Serialization;
 
-namespace xyz.yewnyx.SubLink.OBS;
+namespace tech.SubLink.OBS;
 
 public sealed class OBSSettings {
     [JsonPropertyName("Enabled"), ConfigurationKeyName("Enabled")]

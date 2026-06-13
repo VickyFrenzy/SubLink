@@ -1,7 +1,7 @@
 ﻿using Microsoft.Extensions.Configuration;
 using System.Text.Json.Serialization;
 
-namespace xyz.yewnyx.SubLink.Kick;
+namespace tech.SubLink.Kick;
 
 public sealed class KickSettings {
     [JsonPropertyName("PusherKey"), ConfigurationKeyName("PusherKey")]

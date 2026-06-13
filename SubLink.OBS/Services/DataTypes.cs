@@ -1,4 +1,4 @@
-namespace xyz.yewnyx.SubLink.OBS.Services;
+namespace tech.SubLink.OBS.Services;
 
 public class InputVolume(float multiplier, float dB) {
     public float Multiplier { get; init; } = multiplier;

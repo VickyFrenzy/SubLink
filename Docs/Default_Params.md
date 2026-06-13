@@ -14,7 +14,3 @@
 ## StreamElements
 
 - `int` StreamElementsTip - The tip amount in cents (Only for USD, other currencies are ingored by default)
-
-## Fansly
-
-- `int` FanslyTip - The tip amount in cents

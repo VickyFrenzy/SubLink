@@ -1,7 +1,7 @@
 ﻿using Microsoft.Extensions.Configuration;
 using System.Text.Json.Serialization;
 
-namespace xyz.yewnyx.SubLink.StreamElements;
+namespace tech.SubLink.StreamElements;
 
 public sealed class StreamElementsSettings {
     [JsonPropertyName("JWTToken"), ConfigurationKeyName("JWTToken")]

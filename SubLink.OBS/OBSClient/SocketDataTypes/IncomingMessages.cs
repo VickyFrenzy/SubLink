@@ -1,8 +1,8 @@
 ﻿using System.Text.Json.Serialization;
-using xyz.yewnyx.SubLink.OBS.OBSClient.SocketDataTypes.Event;
-using xyz.yewnyx.SubLink.OBS.OBSClient.SocketDataTypes.Response;
+using tech.SubLink.OBS.OBSClient.SocketDataTypes.Event;
+using tech.SubLink.OBS.OBSClient.SocketDataTypes.Response;
 
-namespace xyz.yewnyx.SubLink.OBS.OBSClient.SocketDataTypes;
+namespace tech.SubLink.OBS.OBSClient.SocketDataTypes;
 
 /**
  * Message sent from the server immediately on client connection.

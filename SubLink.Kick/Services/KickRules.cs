@@ -1,10 +1,10 @@
 ﻿using JetBrains.Annotations;
 using System;
 using System.Threading.Tasks;
-using xyz.yewnyx.SubLink.Kick.KickClient.Events;
-using xyz.yewnyx.SubLink.Platforms;
+using tech.SubLink.Kick.KickClient.Events;
+using tech.SubLink.Platforms;
 
-namespace xyz.yewnyx.SubLink.Kick.Services;
+namespace tech.SubLink.Kick.Services;
 
 [PublicAPI]
 public sealed class KickRules : IPlatformRules {

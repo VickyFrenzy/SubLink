@@ -1,6 +1,6 @@
 ﻿using System;
 
-namespace xyz.yewnyx.SubLink.StreamElements.SEClient;
+namespace tech.SubLink.StreamElements.SEClient;
 
 public sealed class TipEventArgs : EventArgs {
     public string Name { get; set; } = string.Empty;

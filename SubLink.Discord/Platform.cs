@@ -6,10 +6,10 @@ using System;
 using System.Collections.Generic;
 using System.IO;
 using System.Threading.Tasks;
-using xyz.yewnyx.SubLink.Discord.Services;
-using xyz.yewnyx.SubLink.Platforms;
+using tech.SubLink.Discord.Services;
+using tech.SubLink.Platforms;
 
-namespace xyz.yewnyx.SubLink.Discord;
+namespace tech.SubLink.Discord;
 
 public class Platform : IPlatform {
     internal const string PlatformName = "Discord";
@@ -28,7 +28,7 @@ public class Platform : IPlatform {
     public string GetServiceSymbol() => "SUBLINK_DISCORD";
     public string[] GetAdditionalUsings() => [
         "System.Collections.Immutable",
-        "xyz.yewnyx.SubLink.Discord.Services"
+        "tech.SubLink.Discord.Services"
     ];
     public string[] GetAdditionalAssemblies() => [];
 

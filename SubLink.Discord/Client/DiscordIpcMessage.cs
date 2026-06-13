@@ -1,7 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 
-namespace xyz.yewnyx.SubLink.Discord.Client;
+namespace tech.SubLink.Discord.Client;
 
 internal static class DiscordIpcMessage {
     public static object Handshake(string clientId) =>

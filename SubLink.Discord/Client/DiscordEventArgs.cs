@@ -1,6 +1,6 @@
 ﻿using System;
 
-namespace xyz.yewnyx.SubLink.Discord.Client;
+namespace tech.SubLink.Discord.Client;
 
 public sealed class DiscordErrorArgs(int code, string message) : EventArgs {
     public int Code { get; init; } = code;

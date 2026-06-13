@@ -1,9 +1,9 @@
 ﻿using JetBrains.Annotations;
 using System;
 using System.Threading.Tasks;
-using xyz.yewnyx.SubLink.Platforms;
+using tech.SubLink.Platforms;
 
-namespace xyz.yewnyx.SubLink.Streampad.Services;
+namespace tech.SubLink.Streampad.Services;
 
 [PublicAPI]
 public sealed class StreamPadRules : IPlatformRules {

@@ -1,8 +1,8 @@
 ﻿using System;
 using System.Threading.Tasks;
-using xyz.yewnyx.SubLink.Kick.KickClient;
+using tech.SubLink.Kick.KickClient;
 
-namespace xyz.yewnyx.SubLink.Kick.Services;
+namespace tech.SubLink.Kick.Services;
 
 internal sealed partial class KickService {
     private void WireCallbacks() {

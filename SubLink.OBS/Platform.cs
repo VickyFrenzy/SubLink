@@ -6,11 +6,11 @@ using System;
 using System.Collections.Generic;
 using System.IO;
 using System.Threading.Tasks;
-using xyz.yewnyx.SubLink.OBS.OBSClient;
-using xyz.yewnyx.SubLink.OBS.Services;
-using xyz.yewnyx.SubLink.Platforms;
+using tech.SubLink.OBS.OBSClient;
+using tech.SubLink.OBS.Services;
+using tech.SubLink.Platforms;
 
-namespace xyz.yewnyx.SubLink.OBS;
+namespace tech.SubLink.OBS;
 
 public class Platform : IPlatform {
     internal const string PlatformName = "OBS";
@@ -28,8 +28,8 @@ public class Platform : IPlatform {
     public string GetPlatformName() => PlatformName;
     public string GetServiceSymbol() => "SUBLINK_OBS";
     public string[] GetAdditionalUsings() => [
-        "xyz.yewnyx.SubLink.OBS.Services",
-        "xyz.yewnyx.SubLink.OBS.OBSClient",
+        "tech.SubLink.OBS.Services",
+        "tech.SubLink.OBS.OBSClient",
     ];
     public string[] GetAdditionalAssemblies() => [];
 

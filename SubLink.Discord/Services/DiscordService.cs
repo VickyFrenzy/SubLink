@@ -5,9 +5,9 @@ using Microsoft.Extensions.Options;
 using Serilog;
 using System;
 using System.Threading.Tasks;
-using xyz.yewnyx.SubLink.Discord.Client;
+using tech.SubLink.Discord.Client;
 
-namespace xyz.yewnyx.SubLink.Discord.Services;
+namespace tech.SubLink.Discord.Services;
 
 [UsedImplicitly]
 internal sealed partial class DiscordService {

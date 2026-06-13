@@ -1,6 +1,6 @@
 ﻿using System.Text.Json.Serialization;
 
-namespace xyz.yewnyx.SubLink.Kick.KickClient.Events;
+namespace tech.SubLink.Kick.KickClient.Events;
 
 public sealed class StreamHostEvent {
     [JsonPropertyName("chatroom_id"), JsonNumberHandling(JsonNumberHandling.AllowReadingFromString)]

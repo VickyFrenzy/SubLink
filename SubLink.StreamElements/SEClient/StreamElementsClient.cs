@@ -3,7 +3,7 @@ using SocketIOClient;
 using System;
 using System.Threading.Tasks;
 
-namespace xyz.yewnyx.SubLink.StreamElements.SEClient;
+namespace tech.SubLink.StreamElements.SEClient;
 
 internal sealed class StreamElementsClient {
     private const string _socketUri = "wss://realtime.streamelements.com";

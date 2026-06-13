@@ -1,7 +1,7 @@
 using System.Text.Json.Nodes;
 using System.Text.Json.Serialization;
 
-namespace xyz.yewnyx.SubLink.OBS.OBSClient.SocketDataTypes.Response;
+namespace tech.SubLink.OBS.OBSClient.SocketDataTypes.Response;
 
 [JsonPolymorphic(UnknownDerivedTypeHandling = JsonUnknownDerivedTypeHandling.FallBackToNearestAncestor)]
 [JsonDerivedType(typeof(GetHotkeyList))]

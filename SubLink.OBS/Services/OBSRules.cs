@@ -1,10 +1,10 @@
 ﻿using JetBrains.Annotations;
 using System;
 using System.Threading.Tasks;
-using xyz.yewnyx.SubLink.Platforms;
-using xyz.yewnyx.SubLink.OBS.OBSClient.SocketDataTypes.Event;
+using tech.SubLink.Platforms;
+using tech.SubLink.OBS.OBSClient.SocketDataTypes.Event;
 
-namespace xyz.yewnyx.SubLink.OBS.Services;
+namespace tech.SubLink.OBS.Services;
 
 [PublicAPI]
 public sealed class OBSRules : IPlatformRules {

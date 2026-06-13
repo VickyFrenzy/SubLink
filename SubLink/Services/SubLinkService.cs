@@ -7,7 +7,7 @@ using Microsoft.Extensions.Options;
 using Serilog;
 using System.Net;
 
-namespace xyz.yewnyx.SubLink.Services;
+namespace tech.SubLink.Services;
 
 internal class SubLinkService(ILogger logger,
     IServiceScopeFactory serviceScopeFactory,

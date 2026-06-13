@@ -1,7 +1,7 @@
 ﻿using Microsoft.Extensions.Configuration;
 using System.Text.Json.Serialization;
 
-namespace xyz.yewnyx.SubLink;
+namespace tech.SubLink;
 
 internal sealed class DiscordSettings {
     public ulong WebhookId => Convert.ToUInt64(Webhook.Split('/').SkipLast(1).Last());

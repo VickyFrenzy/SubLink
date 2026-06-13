@@ -1,10 +1,10 @@
 ﻿using JetBrains.Annotations;
 using System;
 using System.Threading.Tasks;
-using xyz.yewnyx.SubLink.Discord.Client;
-using xyz.yewnyx.SubLink.Platforms;
+using tech.SubLink.Discord.Client;
+using tech.SubLink.Platforms;
 
-namespace xyz.yewnyx.SubLink.Discord.Services;
+namespace tech.SubLink.Discord.Services;
 
 [PublicAPI]
 public sealed class DiscordRules : IPlatformRules {

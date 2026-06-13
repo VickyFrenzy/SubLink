@@ -7,10 +7,10 @@ using System.Text;
 using System.Text.Json;
 using System.Threading.Tasks;
 using WebSocket4Net;
-using xyz.yewnyx.SubLink.OBS.OBSClient.SocketDataTypes;
-using xyz.yewnyx.SubLink.OBS.OBSClient.SocketDataTypes.Event;
+using tech.SubLink.OBS.OBSClient.SocketDataTypes;
+using tech.SubLink.OBS.OBSClient.SocketDataTypes.Event;
 
-namespace xyz.yewnyx.SubLink.OBS.OBSClient;
+namespace tech.SubLink.OBS.OBSClient;
 
 internal sealed class OBSSocketClient(ILogger logger) {
     private const string _userAgent = "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/114.0.0.0 Safari/537.36";

@@ -4,9 +4,9 @@ using System.Threading.Tasks;
 using TwitchLib.Client.Models;
 using TwitchLib.EventSub.Core.SubscriptionTypes.Channel;
 using TwitchLib.EventSub.Core.SubscriptionTypes.Stream;
-using xyz.yewnyx.SubLink.Platforms;
+using tech.SubLink.Platforms;
 
-namespace xyz.yewnyx.SubLink.Twitch.Services;
+namespace tech.SubLink.Twitch.Services;
 
 [PublicAPI]
 public sealed class TwitchRules : IPlatformRules {

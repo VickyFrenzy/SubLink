@@ -11,7 +11,7 @@ using Microsoft.CodeAnalysis.Text;
 using Microsoft.Extensions.FileProviders;
 using Serilog;
 
-namespace xyz.yewnyx.SubLink.Services;
+namespace tech.SubLink.Services;
 
 internal partial class CompilerService {
     private AssemblyLoadContext? _assemblyLoadContext;

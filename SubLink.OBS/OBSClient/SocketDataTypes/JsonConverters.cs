@@ -3,7 +3,7 @@ using System.Collections.Generic;
 using System.Text.Json;
 using System.Text.Json.Serialization;
 
-namespace xyz.yewnyx.SubLink.OBS.OBSClient.SocketDataTypes;
+namespace tech.SubLink.OBS.OBSClient.SocketDataTypes;
 
 internal class ObsMediaInputActionConverter : JsonConverter<ObsMediaInputAction> {
     private static readonly Dictionary<ObsMediaInputAction, string> TranslationDict = new() {

@@ -9,8 +9,6 @@ Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "SubLink.References", "SubLi
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "SubLink.Twitch", "SubLink.Twitch\SubLink.Twitch.csproj", "{0E5CF4B0-4230-4648-B8D1-1CF2B8F5CC84}"
 EndProject
-Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "SubLink.Fansly", "SubLink.Fansly\SubLink.Fansly.csproj", "{31531B5B-A94C-456E-92F1-416D5C7C42AB}"
-EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "SubLink.Kick", "SubLink.Kick\SubLink.Kick.csproj", "{9838341E-2451-4B9B-BB63-98DF44F8E469}"
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "SubLink.StreamElements", "SubLink.StreamElements\SubLink.StreamElements.csproj", "{CBC1B8DE-F8D4-4909-8AAD-5F7F60581600}"
@@ -19,11 +17,7 @@ Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "SubLink.Streampad", "SubLin
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "SubLink.OBS", "SubLink.OBS\SubLink.OBS.csproj", "{70BE574E-85F3-D717-9D6C-67F0AEEDA81A}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "SubLink.OpenShock", "SubLink.OpenShock\SubLink.OpenShock.csproj", "{FC545D6D-A6A4-258A-04E3-379F183E04E4}"
-EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "SubLink.Discord", "SubLink.Discord\SubLink.Discord.csproj", "{8B4629A6-9DB5-00D4-2D9B-98555598AF0F}"
-EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "SubLink.Joystick", "SubLink.Joystick\SubLink.Joystick.csproj", "{129F7C85-F67D-9789-AD8A-413AA563D162}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -43,10 +37,6 @@ Global
 		{0E5CF4B0-4230-4648-B8D1-1CF2B8F5CC84}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{0E5CF4B0-4230-4648-B8D1-1CF2B8F5CC84}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{0E5CF4B0-4230-4648-B8D1-1CF2B8F5CC84}.Release|Any CPU.Build.0 = Release|Any CPU
-		{31531B5B-A94C-456E-92F1-416D5C7C42AB}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
-		{31531B5B-A94C-456E-92F1-416D5C7C42AB}.Debug|Any CPU.Build.0 = Debug|Any CPU
-		{31531B5B-A94C-456E-92F1-416D5C7C42AB}.Release|Any CPU.ActiveCfg = Release|Any CPU
-		{31531B5B-A94C-456E-92F1-416D5C7C42AB}.Release|Any CPU.Build.0 = Release|Any CPU
 		{9838341E-2451-4B9B-BB63-98DF44F8E469}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
 		{9838341E-2451-4B9B-BB63-98DF44F8E469}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{9838341E-2451-4B9B-BB63-98DF44F8E469}.Release|Any CPU.ActiveCfg = Release|Any CPU
@@ -63,18 +53,10 @@ Global
 		{70BE574E-85F3-D717-9D6C-67F0AEEDA81A}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{70BE574E-85F3-D717-9D6C-67F0AEEDA81A}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{70BE574E-85F3-D717-9D6C-67F0AEEDA81A}.Release|Any CPU.Build.0 = Release|Any CPU
-		{FC545D6D-A6A4-258A-04E3-379F183E04E4}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
-		{FC545D6D-A6A4-258A-04E3-379F183E04E4}.Debug|Any CPU.Build.0 = Debug|Any CPU
-		{FC545D6D-A6A4-258A-04E3-379F183E04E4}.Release|Any CPU.ActiveCfg = Release|Any CPU
-		{FC545D6D-A6A4-258A-04E3-379F183E04E4}.Release|Any CPU.Build.0 = Release|Any CPU
 		{8B4629A6-9DB5-00D4-2D9B-98555598AF0F}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
 		{8B4629A6-9DB5-00D4-2D9B-98555598AF0F}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{8B4629A6-9DB5-00D4-2D9B-98555598AF0F}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{8B4629A6-9DB5-00D4-2D9B-98555598AF0F}.Release|Any CPU.Build.0 = Release|Any CPU
-		{129F7C85-F67D-9789-AD8A-413AA563D162}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
-		{129F7C85-F67D-9789-AD8A-413AA563D162}.Debug|Any CPU.Build.0 = Debug|Any CPU
-		{129F7C85-F67D-9789-AD8A-413AA563D162}.Release|Any CPU.ActiveCfg = Release|Any CPU
-		{129F7C85-F67D-9789-AD8A-413AA563D162}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE

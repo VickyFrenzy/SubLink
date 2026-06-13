@@ -3,7 +3,7 @@ using System.Net.Http;
 using System.Text.Json;
 using System.Threading.Tasks;
 
-namespace xyz.yewnyx.SubLink.Discord.Client;
+namespace tech.SubLink.Discord.Client;
 
 internal class DiscordAuth(string clientId, string clientSecret) {
     private readonly string _clientId = clientId;

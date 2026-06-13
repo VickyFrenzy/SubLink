@@ -5,9 +5,9 @@ using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
 using Microsoft.Extensions.Options;
 using Serilog;
-using xyz.yewnyx.SubLink.OBS.OBSClient;
+using tech.SubLink.OBS.OBSClient;
 
-namespace xyz.yewnyx.SubLink.OBS.Services;
+namespace tech.SubLink.OBS.Services;
 
 [UsedImplicitly]
 internal sealed partial class OBSService {

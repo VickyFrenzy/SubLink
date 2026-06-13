@@ -4,7 +4,7 @@ using Serilog;
 using VRC.OSCQuery;
 using static VRC.OSCQuery.Extensions;
 
-namespace xyz.yewnyx.SubLink.Services;
+namespace tech.SubLink.Services;
 
 [UsedImplicitly]
 public sealed class OSCSupportService(ILogger logger, ScriptGlobals globals)

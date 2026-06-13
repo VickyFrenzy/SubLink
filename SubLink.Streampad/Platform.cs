@@ -6,10 +6,10 @@ using System;
 using System.Collections.Generic;
 using System.IO;
 using System.Threading.Tasks;
-using xyz.yewnyx.SubLink.Platforms;
-using xyz.yewnyx.SubLink.Streampad.Services;
+using tech.SubLink.Platforms;
+using tech.SubLink.Streampad.Services;
 
-namespace xyz.yewnyx.SubLink.Streampad;
+namespace tech.SubLink.Streampad;
 
 public class Platform : IPlatform {
     internal const string PlatformName = "StreamPad";
@@ -27,7 +27,7 @@ public class Platform : IPlatform {
     public string GetPlatformName() => PlatformName;
     public string GetServiceSymbol() => "SUBLINK_STREAMPAD";
     public string[] GetAdditionalUsings() => [
-        "xyz.yewnyx.SubLink.Streampad.Services",
+        "tech.SubLink.Streampad.Services",
     ];
     public string[] GetAdditionalAssemblies() => [];
 

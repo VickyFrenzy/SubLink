@@ -1,6 +1,6 @@
 ﻿using System;
 
-namespace xyz.yewnyx.SubLink.OBS.OBSClient.SocketDataTypes.Event;
+namespace tech.SubLink.OBS.OBSClient.SocketDataTypes.Event;
 
 internal sealed class OBSErrorArgs : EventArgs {
     public Exception Exception { get; set; } = new();

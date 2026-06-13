@@ -8,10 +8,10 @@ using Serilog;
 using Serilog.Context;
 using Serilog.Events;
 using Serilog.Sinks.Discord;
-using xyz.yewnyx.SubLink.Platforms;
-using xyz.yewnyx.SubLink.Services;
+using tech.SubLink.Platforms;
+using tech.SubLink.Services;
 
-namespace xyz.yewnyx.SubLink;
+namespace tech.SubLink;
 
 internal partial class Program {
     private static string ExeDir = string.Empty;

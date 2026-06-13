@@ -1,6 +1,6 @@
 ﻿using System.Text.Json.Serialization;
 
-namespace xyz.yewnyx.SubLink.OBS.OBSClient.SocketDataTypes;
+namespace tech.SubLink.OBS.OBSClient.SocketDataTypes;
 
 public enum OpCode : uint {
     /**

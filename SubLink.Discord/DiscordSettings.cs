@@ -1,7 +1,7 @@
 ﻿using Microsoft.Extensions.Configuration;
 using System.Text.Json.Serialization;
 
-namespace xyz.yewnyx.SubLink.Discord;
+namespace tech.SubLink.Discord;
 
 public sealed class DiscordSettings {
     [JsonPropertyName("Enabled"), ConfigurationKeyName("Enabled")]

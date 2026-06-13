@@ -1,7 +1,7 @@
 ﻿using Microsoft.Extensions.Configuration;
 using System.Text.Json.Serialization;
 
-namespace xyz.yewnyx.SubLink.Streampad;
+namespace tech.SubLink.Streampad;
 
 public sealed class StreamPadSettings {
     [JsonPropertyName("WebSocketUrl"), ConfigurationKeyName("WebSocketUrl")]

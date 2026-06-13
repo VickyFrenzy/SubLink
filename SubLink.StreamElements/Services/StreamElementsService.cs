@@ -5,9 +5,9 @@ using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
 using Microsoft.Extensions.Options;
 using Serilog;
-using xyz.yewnyx.SubLink.StreamElements.SEClient;
+using tech.SubLink.StreamElements.SEClient;
 
-namespace xyz.yewnyx.SubLink.StreamElements.Services;
+namespace tech.SubLink.StreamElements.Services;
 
 [UsedImplicitly]
 internal sealed partial class StreamElementsService {

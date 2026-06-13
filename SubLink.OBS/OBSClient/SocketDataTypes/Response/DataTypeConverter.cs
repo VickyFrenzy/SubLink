@@ -3,7 +3,7 @@ using System.Collections.Generic;
 using System.Text.Json;
 using System.Text.Json.Serialization;
 
-namespace xyz.yewnyx.SubLink.OBS.OBSClient.SocketDataTypes.Response;
+namespace tech.SubLink.OBS.OBSClient.SocketDataTypes.Response;
 
 internal class DataTypeConverter : JsonConverter<InResponseMsg.Data> {
 	private static readonly Dictionary<string, Type> ResponseTypeMap = new() {

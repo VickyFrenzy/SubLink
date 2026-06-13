@@ -3,7 +3,7 @@ using System.Collections.Generic;
 using System.Text.Json;
 using System.Text.Json.Serialization;
 
-namespace xyz.yewnyx.SubLink.OBS.OBSClient.SocketDataTypes.Event;
+namespace tech.SubLink.OBS.OBSClient.SocketDataTypes.Event;
 
 internal class EventTypeConverter : JsonConverter<EventDataType> {
 	private static readonly Dictionary<string, Type> EventTypeMap = new() {

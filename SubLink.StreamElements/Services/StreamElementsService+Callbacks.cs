@@ -1,7 +1,7 @@
 ﻿using System.Threading.Tasks;
-using xyz.yewnyx.SubLink.StreamElements.SEClient;
+using tech.SubLink.StreamElements.SEClient;
 
-namespace xyz.yewnyx.SubLink.StreamElements.Services;
+namespace tech.SubLink.StreamElements.Services;
 
 internal sealed partial class StreamElementsService {
     private void WireCallbacks() {

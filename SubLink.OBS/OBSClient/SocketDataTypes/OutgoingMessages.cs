@@ -1,8 +1,8 @@
 ﻿using System;
 using System.Text.Json.Serialization;
-using xyz.yewnyx.SubLink.OBS.OBSClient.SocketDataTypes.Request;
+using tech.SubLink.OBS.OBSClient.SocketDataTypes.Request;
 
-namespace xyz.yewnyx.SubLink.OBS.OBSClient.SocketDataTypes;
+namespace tech.SubLink.OBS.OBSClient.SocketDataTypes;
 
 /**
  * Response to Hello message, should contain authentication string if authentication is required, along with PubSub subscriptions and other session parameters.

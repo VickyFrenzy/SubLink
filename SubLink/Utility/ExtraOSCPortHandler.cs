@@ -1,7 +1,7 @@
 ﻿using BuildSoft.OscCore;
 using BuildSoft.OscCore.UnityObjects;
 
-namespace xyz.yewnyx.SubLink.Utility;
+namespace tech.SubLink.Utility;
 
 public class ExtraOSCPortHandler {
     public class ExtraPort {

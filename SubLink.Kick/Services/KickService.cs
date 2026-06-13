@@ -5,9 +5,9 @@ using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
 using Microsoft.Extensions.Options;
 using Serilog;
-using xyz.yewnyx.SubLink.Kick.KickClient;
+using tech.SubLink.Kick.KickClient;
 
-namespace xyz.yewnyx.SubLink.Kick.Services;
+namespace tech.SubLink.Kick.Services;
 
 [UsedImplicitly]
 internal sealed partial class KickService {

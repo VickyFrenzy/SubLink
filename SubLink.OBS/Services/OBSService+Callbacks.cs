@@ -1,8 +1,8 @@
 ﻿using System;
 using System.Threading.Tasks;
-using xyz.yewnyx.SubLink.OBS.OBSClient.SocketDataTypes.Event;
+using tech.SubLink.OBS.OBSClient.SocketDataTypes.Event;
 
-namespace xyz.yewnyx.SubLink.OBS.Services;
+namespace tech.SubLink.OBS.Services;
 
 internal sealed partial class OBSService {
     private void WireCallbacks() {

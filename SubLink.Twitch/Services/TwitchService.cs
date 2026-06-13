@@ -24,7 +24,7 @@ using TwitchLib.Communication.Models;
 using TwitchLib.EventSub.Websockets;
 using TwitchLib.EventSub.Websockets.Core.EventArgs;
 
-namespace xyz.yewnyx.SubLink.Twitch.Services;
+namespace tech.SubLink.Twitch.Services;
 
 [UsedImplicitly]
 internal sealed partial class TwitchService {

@@ -1,8 +1,8 @@
 ﻿using System;
 using PusherClient;
-using xyz.yewnyx.SubLink.Kick.KickClient.Events;
+using tech.SubLink.Kick.KickClient.Events;
 
-namespace xyz.yewnyx.SubLink.Kick.KickClient;
+namespace tech.SubLink.Kick.KickClient;
 
 internal sealed class PusherConnectionStateChangedArgs : EventArgs {
     public ConnectionState State { get; set; } = ConnectionState.Disconnected;

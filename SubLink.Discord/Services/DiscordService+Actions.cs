@@ -1,7 +1,7 @@
 ﻿using System;
-using xyz.yewnyx.SubLink.Discord.Client;
+using tech.SubLink.Discord.Client;
 
-namespace xyz.yewnyx.SubLink.Discord.Services;
+namespace tech.SubLink.Discord.Services;
 
 internal sealed partial class DiscordService {
     public void Mute(bool mute) =>

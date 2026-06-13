@@ -6,11 +6,11 @@ using System;
 using System.Collections.Generic;
 using System.IO;
 using System.Threading.Tasks;
-using xyz.yewnyx.SubLink.Platforms;
-using xyz.yewnyx.SubLink.StreamElements.SEClient;
-using xyz.yewnyx.SubLink.StreamElements.Services;
+using tech.SubLink.Platforms;
+using tech.SubLink.StreamElements.SEClient;
+using tech.SubLink.StreamElements.Services;
 
-namespace xyz.yewnyx.SubLink.StreamElements;
+namespace tech.SubLink.StreamElements;
 
 public class Platform : IPlatform {
     internal const string PlatformName = "StreamElements";
@@ -28,8 +28,8 @@ public class Platform : IPlatform {
     public string GetPlatformName() => PlatformName;
     public string GetServiceSymbol() => "SUBLINK_STREAMELEMENTS";
     public string[] GetAdditionalUsings() => [
-        "xyz.yewnyx.SubLink.StreamElements.Services",
-        "xyz.yewnyx.SubLink.StreamElements.SEClient",
+        "tech.SubLink.StreamElements.Services",
+        "tech.SubLink.StreamElements.SEClient",
     ];
     public string[] GetAdditionalAssemblies() => [];
 

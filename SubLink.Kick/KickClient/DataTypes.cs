@@ -1,7 +1,7 @@
 ﻿using System;
 using System.Text.Json.Serialization;
 
-namespace xyz.yewnyx.SubLink.Kick.KickClient;
+namespace tech.SubLink.Kick.KickClient;
 
 public sealed class KickBadge {
     [JsonPropertyName("type")]

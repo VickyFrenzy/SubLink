@@ -1,8 +1,8 @@
 ﻿using System;
 using System.Threading.Tasks;
-using xyz.yewnyx.SubLink.Discord.Client;
+using tech.SubLink.Discord.Client;
 
-namespace xyz.yewnyx.SubLink.Discord.Services;
+namespace tech.SubLink.Discord.Services;
 
 internal sealed partial class DiscordService {
     private void WireCallbacks() {

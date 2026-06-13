@@ -1,6 +1,6 @@
 ﻿using System.Text.Json.Serialization;
 
-namespace xyz.yewnyx.SubLink.OBS.OBSClient.SocketDataTypes;
+namespace tech.SubLink.OBS.OBSClient.SocketDataTypes;
 
 // https://github.com/obs-websocket-community-projects/obs-websocket-js/blob/master/src/types.ts#L211
 [JsonPolymorphic(

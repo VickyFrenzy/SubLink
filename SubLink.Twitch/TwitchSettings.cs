@@ -1,7 +1,7 @@
 ﻿using Microsoft.Extensions.Configuration;
 using System.Text.Json.Serialization;
 
-namespace xyz.yewnyx.SubLink.Twitch;
+namespace tech.SubLink.Twitch;
 
 public sealed class TwitchSettings {
     [JsonPropertyName("ClientId"), ConfigurationKeyName("ClientId")]

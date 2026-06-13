@@ -6,11 +6,11 @@ using System;
 using System.Collections.Generic;
 using System.IO;
 using System.Threading.Tasks;
-using xyz.yewnyx.SubLink.Kick.KickClient;
-using xyz.yewnyx.SubLink.Kick.Services;
-using xyz.yewnyx.SubLink.Platforms;
+using tech.SubLink.Kick.KickClient;
+using tech.SubLink.Kick.Services;
+using tech.SubLink.Platforms;
 
-namespace xyz.yewnyx.SubLink.Kick;
+namespace tech.SubLink.Kick;
 
 public class Platform : IPlatform {
     internal const string PlatformName = "Kick";
@@ -28,8 +28,8 @@ public class Platform : IPlatform {
     public string GetPlatformName() => PlatformName;
     public string GetServiceSymbol() => "SUBLINK_KICK";
     public string[] GetAdditionalUsings() => [
-        "xyz.yewnyx.SubLink.Kick.Services",
-        "xyz.yewnyx.SubLink.Kick.KickClient",
+        "tech.SubLink.Kick.Services",
+        "tech.SubLink.Kick.KickClient",
     ];
     public string[] GetAdditionalAssemblies() => [];
 
